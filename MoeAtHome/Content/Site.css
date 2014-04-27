@@ -1,0 +1,139 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft YaHei UI','Microsoft YaHei','SimSun','Segoe UI','Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+}
+
+/* This CSS style removes the background-color of the from */
+.no-color {
+    background-color: white;
+    border-style: none;
+}
+
+p {
+    color: #888888;
+}
+
+a:hover {
+    color: #00BAFF;
+}
+
+a {
+    color: #009FDA;
+    text-decoration: none;
+}
+
+.ui.main.menu {
+    top: 0;
+    min-width: 320px;
+    z-index: 900;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: margin 0.3s ease;
+    -moz-transition: margin 0.3s ease;
+    -o-transition: margin 0.3s ease;
+    -ms-transition: margin 0.3s ease;
+    transition: margin 0.3s ease;
+}
+
+#moeathome {
+    margin-top: 43px;
+    background: #e8e8e8;
+}
+
+    /* segment headers */
+    #moeathome > .content > .page > .segment,
+    #moeathome > .segment {
+        margin: 0 0 1em;
+        padding-bottom: 30px;
+        padding-top: 15px;
+        background-color: #FFFFFF;
+        border-bottom: 1px solid #DDDDDD;
+    }
+
+    #moeathome .main.container {
+        padding-bottom: 10px;
+    }
+
+        #moeathome .main.container > h2 {
+            -webkit-transition: 0.5s color ease;
+            -moz-transition: 0.5s color ease;
+            -o-transition: 0.5s color ease;
+            -ms-transition: 0.5s color ease;
+            transition: 0.5s color ease;
+        }
+
+    #moeathome .container {
+        width: auto;
+        margin-right: 1em;
+        margin-left: 1em;
+    }
+
+footer {
+    margin: 0 1em;
+}
+
+#title-segment {
+    background: url('/Images/title-background.jpg') no-repeat;
+    background-size: cover;
+    color: white;
+}
+
+#blogs .segment {
+    margin-bottom: 10px;
+}
+
+#blogs .header h4 {
+    margin: 0 0 .75em 0;
+}
+
+    #blogs .header h4:hover {
+        transition:color linear .3s;
+        color:red;
+    }
+
+.inline {
+    display: inline;
+}
+
+.right.floated {
+    float: right;
+}
+
+.gray {
+    color: gray;
+}
+
+#blogs .summary {
+    color: black;
+}
+
+.code.segment, .code .hljs {
+    background-color:#eee;
+    padding:.5em;
+}
+
+.ui.code{
+    font-size:13px;
+    line-height:15px;
+}
+
+.ui.code pre{
+    margin:0;
+    font-family:Consolas, Monaco, Menlo, Courier New, monospace;
+}
+
+.line-number{
+    margin:0;
+    padding:0 .5em 0 0;
+    border-right:5px solid #6ce26c;
+    color:gray;
+    text-align:right;
+    font-family:Monaco, Menlo, Consolas, Courier New, monospace;
+}
+
+.blog-content{
+    color:black;
+}

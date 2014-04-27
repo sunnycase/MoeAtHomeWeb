@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - Moe@Home</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/angular")
+</head>
+<body>
+    <div class="ui fixed transparent inverted main menu">
+        <div class="container">
+            <a class="icon title active item" href="#/">
+                <i class="home icon"></i>
+                <b>Moe@Home</b>
+            </a>
+
+            @*<div class="section ui dropdown item">
+                    <span>开发</span>
+                    <div class="menu">
+                        <div class="active item">
+                            @Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section ui dropdown item">
+                    <span>ACG</span>
+                    <div class="menu">
+                        <div class="active item">
+                            @Html.ActionLink("追新番", "Index", "ACG", new { area = "ACG" }, null)
+                        </div>
+                    </div>
+                </div>*@
+
+            @*<div class="right menu" data-bind="with: user">
+                    <div class="item">
+                        <span>Hi, <a href="#" data-bind="text: name, click: manage"></a>!</span>
+                    </div>
+                    <div class="item"><a href="#" data-bind="click: logOff">退出</a></div>
+                </div>*@
+        </div>
+    </div>
+    <div id="moeathome" ng-app="moeathomeApp">
+        <div id="title-segment" class="segment">
+            <div class="container">
+                <h1 class="ui header">SunnyCase@Home</h1>
+                <p>puchi~ tomato</p>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+    <footer>
+        <p>Moe@Home &copy; @DateTime.Now.Year Designed by SunnyCase</p>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/semantic")
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/highlight")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

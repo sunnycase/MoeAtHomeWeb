@@ -1,0 +1,56 @@
+﻿
+<div class="main container" ng-controller="viewBlogCtrl" ng-init="onLoaded()">
+    <section id="post" style="display:none;">
+        <div class="ui segment">
+            <h4 class="ui teal header">{{blog.title}}</h4>
+            <div class="ui small labels">
+                <a class="ui label" ng-repeat="tag in blog.tags"><i class="tag icon"></i>{{tag}}</a>
+            </div>
+            <p class="summary">{{blog.summary}}</p>
+            <h5 class="inline gray"><i class="calendar icon"></i>{{blog.date}}</h5>
+            <h6 class="inline gray">
+                <i class="user icon"></i>{{blog.readersCount}}
+                <i class="comment icon"></i>{{blog.commentsCount}}
+            </h6>
+            <p class="blog-content">{{blog.content}}</p>
+
+            <div class="ui code segment">
+                <table>
+                    <tr>
+                        <td class="gutter" />
+                        <td>
+                            <code>
+                                <pre>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+namespace MoeAtHome.Controllers
+{
+    public class HomeController : Controller
+    {
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult ViewBlog(int id)
+        {
+            ViewBag.Title = id.ToString();
+            return View();
+        }
+    }
+}
+</pre>
+                            </code>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+    <section id="post-notfound" style="display:none">
+        <h4 class="ui red message">
+            您要找的博文不存在。
+        </h4>
+    </section>
+</div>
