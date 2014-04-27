@@ -31,6 +31,7 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams',
                     $('#post').css('display', 'block');
                 }
                 else {
+                    document.title = "没找到这篇文章 - Moe@Home";
                     $('#post-notfound').css('display', 'block');
                 }
             }).error(function (data, status) {

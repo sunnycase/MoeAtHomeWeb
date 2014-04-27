@@ -7,6 +7,9 @@ moeathomeApp.config(['$routeProvider', '$locationProvider', function ($routeProv
         .when('/', {
             templateUrl: '/Home/_HomePage',
         })
+        .when('/login', {
+            templateUrl: '/Home/_Login',
+        })
         .when('/blog/:date/:title', {
             templateUrl: '/Home/_ViewBlog',
         })

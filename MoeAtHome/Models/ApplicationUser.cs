@@ -12,5 +12,10 @@ namespace MoeAtHome.Models
         /// ÓÊ¼şµØÖ·
         /// </summary>
         public string Email { get; set; }
+
+        internal static string GetPartitionKeyFromId(string id)
+        {
+            return id;
+        }
     }
 }

@@ -7,7 +7,7 @@
 *.sln.docstates
 
 # ConnectConfig
-/Connect.config
+Connect.config
 
 # Build results
 

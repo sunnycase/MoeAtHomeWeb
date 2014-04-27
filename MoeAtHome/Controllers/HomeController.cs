@@ -24,5 +24,10 @@ namespace MoeAtHome.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult _Login()
+        {
+            return PartialView();
+        }
     }
 }
