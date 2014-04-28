@@ -291,8 +291,11 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\appDataCtrl.js" />
     <Content Include="Scripts\app\homePageCtrl.js" />
     <Content Include="Scripts\app\loginCtrl.js" />
+    <Content Include="Scripts\app\registerCtrl.js" />
+    <Content Include="Scripts\app\userInfoModel.js" />
     <Content Include="Scripts\app\viewBlogCtrl.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -591,6 +594,7 @@
     <Content Include="Views\Home\_ViewBlog.cshtml" />
     <Content Include="Views\Home\_HomePage.cshtml" />
     <Content Include="Views\Home\_Login.cshtml" />
+    <Content Include="Views\Home\_Register.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -10,10 +10,15 @@ moeathomeApp.config(['$routeProvider', '$locationProvider', function ($routeProv
         .when('/login', {
             templateUrl: '/Home/_Login',
         })
+        .when('/register', {
+            templateUrl: '/Home/_Register',
+        })
         .when('/blog/:date/:title', {
             templateUrl: '/Home/_ViewBlog',
         })
         .otherwise({
             redirectTo: '/'
         });
+}]).service('appDataService', ['$rootScope', function ($rootScope) {
+    return new AppDataModel($rootScope);
 }]);

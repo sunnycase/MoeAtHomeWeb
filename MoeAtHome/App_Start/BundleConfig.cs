@@ -31,10 +31,13 @@ namespace MoeAtHome
                         "~/Scripts/highlight.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/Scripts/app/userInfoModel.js",
                 "~/Scripts/app/app.js",
+                "~/Scripts/app/appDataCtrl.js",
                 "~/Scripts/app/homePageCtrl.js",
                 "~/Scripts/app/viewBlogCtrl.js",
-                "~/Scripts/app/loginCtrl.js"));
+                "~/Scripts/app/loginCtrl.js",
+                "~/Scripts/app/registerCtrl.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/semantic.css",

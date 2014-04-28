@@ -15,7 +15,7 @@ namespace MoeAtHome.Models
 
         internal static string GetPartitionKeyFromId(string id)
         {
-            return id;
+            return id.GetHashCode().ToString();
         }
     }
 }

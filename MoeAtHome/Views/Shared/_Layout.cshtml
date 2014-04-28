@@ -9,8 +9,8 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/angular")
 </head>
-<body>
-    <div class="ui fixed transparent inverted main menu">
+<body ng-app="moeathomeApp">
+    <div class="ui fixed transparent inverted main menu" ng-controller="appDataCtrl">
         <div class="container">
             <a class="icon title active item" href="#/">
                 <i class="home icon"></i>
@@ -35,18 +35,17 @@
                     </div>
                 </div>*@
             <div class="right menu">
-                <div class="item"><a href="#/login">登录</a></div>
+                <div class="item" ng-show="!loggedIn"><a href="#/login">登录</a></div>
+                <div class="item" ng-show="loggedIn">
+                    <span>Hi, <a href="#">{{userName}}</a>!</span>
+                </div>
+                <div class="item" ng-show="loggedIn">
+                    <a href="#" ng-click="logOff()">退出</a>
+                </div>
             </div>
-
-            @*<div class="right menu" data-bind="with: user">
-                    <div class="item">
-                        <span>Hi, <a href="#" data-bind="text: name, click: manage"></a>!</span>
-                    </div>
-                    <div class="item"><a href="#" data-bind="click: logOff">退出</a></div>
-                </div>*@
         </div>
     </div>
-    <div id="moeathome" ng-app="moeathomeApp">
+    <div id="moeathome">
         <div id="title-segment" class="segment">
             <div class="container">
                 <h1 class="ui header">SunnyCase@Home</h1>
@@ -61,8 +60,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/semantic")
-    @Scripts.Render("~/bundles/app")
     @Scripts.Render("~/bundles/highlight")
+    @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
 </body>
 </html>

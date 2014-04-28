@@ -22,3 +22,6 @@
 /// <reference path="app/homepagectrl.js" />
 /// <reference path="app/viewblogctrl.js" />
 /// <reference path="app/loginctrl.js" />
+/// <reference path="app/registerctrl.js" />
+/// <reference path="app/appdatactrl.js" />
+/// <reference path="app/userinfomodel.js" />
