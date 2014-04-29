@@ -1,11 +1,10 @@
 ﻿'use strict'
 
-function AppDataModel($rootScope) {
+function AppDataModel($rootScope, $http) {
     var self = this,
         siteUrl = "/",
         userInfoUrl = "/api/account/userInfo",
         logOffUrl = '/api/account/logout';
-    var $http = angular.injector(['moeathomeApp', 'ng']).get('$http');
 
     self.user = null;
     self.loggedIn = function () { return self.user != null };
@@ -86,6 +85,23 @@ function AppDataModel($rootScope) {
         self.user = new UserInfoModel(userName);
         $rootScope.$broadcast('loggedIn.update');
         $rootScope.$broadcast('user.userName.update');
+        self.autoLogin();
+    };
+
+    self.autoLogin = function () {
+        self.getUserInfo().success(function (data) {
+            if (data.userName) {
+                if (self.user == null) {
+                    self.login(data.userName);
+                }
+                self.user.isAdmin = data.isAdministrator;
+                $rootScope.$broadcast('user.isAdmin.update');
+            } else {
+            }
+        }).error(function () {
+            self.user = null;
+            $rootScope.$broadcast('loggedIn.update');
+        });
     };
 
     self.logOff = function () {
@@ -100,33 +116,45 @@ function AppDataModel($rootScope) {
 
     self.init = function () {
         self.restoreSessionStorageFromLocalStorage();
-        self.getUserInfo().success(function (data) {
-            if (data.userName) {
-                self.login(data.userName);
-            } else {
-            }
-        }).error(function () {
-            self.user = null;
-            $rootScope.$broadcast('loggedIn.update');
-        });
+        self.autoLogin();
     };
-    self.init();
 };
 
 moeathomeApp.controller('appDataCtrl', ['$scope', 'appDataService', function ($scope, appDataService) {
-    $scope.$on('loggedIn.update', function (event) {
+    $scope.updateLoggedIn = function () {
         $scope.loggedIn = appDataService.loggedIn();
-        $scope.$apply();
-    });
-    $scope.loggedIn = appDataService.loggedIn();
+    };
 
-    $scope.$on('user.userName.update', function (event) {
+    $scope.updateUserName = function () {
         if (appDataService.user != null)
             $scope.userName = appDataService.user.userName;
         else
             $scope.userName = '';
-        $scope.$apply();
+    };
+
+    $scope.updateIsAdmin = function () {
+        if (appDataService.user != null)
+            $scope.isAdmin = appDataService.user.isAdmin;
+        else
+            $scope.isAdmin = false;
+    };
+
+    $scope.$on('loggedIn.update', function (event) {
+        $scope.updateLoggedIn();
     });
-    $scope.userName = '';
+
+    $scope.$on('user.userName.update', function (event) {
+        $scope.updateUserName();
+    });
+
+    $scope.$on('user.isAdmin.update', function (event) {
+        $scope.updateIsAdmin();
+    });
+
+    $scope.init = appDataService.init;
     $scope.logOff = appDataService.logOff;
+
+    $scope.updateLoggedIn();
+    $scope.updateUserName();
+    $scope.updateIsAdmin();
 }]);

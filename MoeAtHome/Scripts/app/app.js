@@ -16,9 +16,12 @@ moeathomeApp.config(['$routeProvider', '$locationProvider', function ($routeProv
         .when('/blog/:date/:title', {
             templateUrl: '/Home/_ViewBlog',
         })
+        .when('/blog/post', {
+            templateUrl: '/Home/_PostBlog',
+        })
         .otherwise({
             redirectTo: '/'
         });
-}]).service('appDataService', ['$rootScope', function ($rootScope) {
-    return new AppDataModel($rootScope);
+}]).service('appDataService', ['$rootScope', '$http', function ($rootScope, $http) {
+    return new AppDataModel($rootScope, $http);
 }]);

@@ -30,6 +30,7 @@ namespace MoeAtHome.Models
         public string UserName { get; set; }
 
         public bool HasRegistered { get; set; }
+        public bool IsAdministrator { get; set; }
 
         public string LoginProvider { get; set; }
     }

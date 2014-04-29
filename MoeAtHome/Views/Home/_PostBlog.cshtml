@@ -1,0 +1,46 @@
+﻿
+<div class="main container" ng-controller="postBlogCtrl">
+    <form class="ui warning fluid form segment">
+        <i class="circular inverted teal add icon"></i>
+        <h3 class="ui icon dividing header">发表文章</h3>
+        <div class="ui red message" ng-show="errors.length != 0">
+            <div class="header">好像发生了一些错误。</div>
+            <ul class="list">
+                <li ng-repeat="error in errors">{{error}}</li>
+            </ul>
+        </div>
+        <div class="field" ng-class="{true: 'error'}[title.hasError()]">
+            <label for="title" class="control-label">标题</label>
+            <div class="ui left labeled input">
+                <input type="text" ng-model="title.value" placeholder="标题" />
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+                <span class="ui red pointing above ui label"
+                      ng-show="title.hasError()">{{title.errorMessage}}</span>
+            </div>
+        </div>
+        <div class="field" ng-class="{true: 'error'}[tags.hasError()]">
+            <label for="tags" class="control-label">标签</label>
+            <div class="ui left labeled input">
+                <input type="text" ng-model="tags.value" placeholder="标签（多个标签请用;分隔）" />
+                <span class="ui red pointing above ui label"
+                      ng-show="tags.hasError()">{{tags.errorMessage}}</span>
+            </div>
+        </div>
+        <div class="field" ng-class="{true: 'error'}[content.hasError()]">
+            <label for="content" class="control-label">内容</label>
+            <div class="ui left labeled input">
+                <textarea ng-model="content.value" placeholder="内容"></textarea>
+                <div class="ui corner label">
+                    <i class="icon asterisk"></i>
+                </div>
+                <span class="ui red pointing above ui label"
+                      ng-show="title.hasError()">{{content.errorMessage}}</span>
+            </div>
+        </div>
+        <button class="ui blue submit icon button" ng-click="doPostBlog()">
+            <i class="icon edit"></i> 发表！
+        </button>
+    </form>
+</div>

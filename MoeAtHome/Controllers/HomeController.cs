@@ -34,5 +34,10 @@ namespace MoeAtHome.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult _PostBlog()
+        {
+            return PartialView();
+        }
     }
 }

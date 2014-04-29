@@ -37,7 +37,8 @@ namespace MoeAtHome
                 "~/Scripts/app/homePageCtrl.js",
                 "~/Scripts/app/viewBlogCtrl.js",
                 "~/Scripts/app/loginCtrl.js",
-                "~/Scripts/app/registerCtrl.js"));
+                "~/Scripts/app/registerCtrl.js",
+                "~/Scripts/app/postBlogCtrl.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/semantic.css",

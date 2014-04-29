@@ -8,11 +8,12 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/app")
 </head>
 <body ng-app="moeathomeApp">
-    <div class="ui fixed transparent inverted main menu" ng-controller="appDataCtrl">
+    <div class="ui fixed transparent inverted main menu" ng-controller="appDataCtrl" ng-init="init()">
         <div class="container">
-            <a class="icon title active item" href="#/">
+            <a class="icon title item" href="#/">
                 <i class="home icon"></i>
                 <b>Moe@Home</b>
             </a>
@@ -36,10 +37,15 @@
                 </div>*@
             <div class="right menu">
                 <div class="item" ng-show="!loggedIn"><a href="#/login">登录</a></div>
+                <div class="icon item" ng-show="loggedIn && isAdmin">
+                    <i class="add icon"></i>
+                    <a href="#/blog/post">写文章</a>
+                </div>
                 <div class="item" ng-show="loggedIn">
                     <span>Hi, <a href="#">{{userName}}</a>!</span>
                 </div>
-                <div class="item" ng-show="loggedIn">
+                <div class="icon item" ng-show="loggedIn">
+                    <i class="off icon"></i>
                     <a href="#" ng-click="logOff()">退出</a>
                 </div>
             </div>
@@ -61,7 +67,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/semantic")
     @Scripts.Render("~/bundles/highlight")
-    @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
 </body>
 </html>

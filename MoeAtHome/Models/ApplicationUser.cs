@@ -13,6 +13,8 @@ namespace MoeAtHome.Models
         /// </summary>
         public string Email { get; set; }
 
+        public const string AdministratorRoleName = "Administrator";
+
         internal static string GetPartitionKeyFromId(string id)
         {
             return id.GetHashCode().ToString();

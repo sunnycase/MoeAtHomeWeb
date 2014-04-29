@@ -50,7 +50,9 @@ namespace MoeAtHome.Controllers
             {
                 UserName = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
+                IsAdministrator = UserManager.IsInRole(User.Identity.GetUserName(),
+                    ApplicationUser.AdministratorRoleName)
             };
         }
 

@@ -25,3 +25,4 @@
 /// <reference path="app/registerctrl.js" />
 /// <reference path="app/appdatactrl.js" />
 /// <reference path="app/userinfomodel.js" />
+/// <reference path="app/postblogctrl.js" />

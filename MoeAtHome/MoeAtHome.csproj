@@ -228,6 +228,7 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Blog.cs" />
+    <Compile Include="ViewModels\PostBlogViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -294,6 +295,7 @@
     <Content Include="Scripts\app\appDataCtrl.js" />
     <Content Include="Scripts\app\homePageCtrl.js" />
     <Content Include="Scripts\app\loginCtrl.js" />
+    <Content Include="Scripts\app\postBlogCtrl.js" />
     <Content Include="Scripts\app\registerCtrl.js" />
     <Content Include="Scripts\app\userInfoModel.js" />
     <Content Include="Scripts\app\viewBlogCtrl.js" />
@@ -595,6 +597,7 @@
     <Content Include="Views\Home\_HomePage.cshtml" />
     <Content Include="Views\Home\_Login.cshtml" />
     <Content Include="Views\Home\_Register.cshtml" />
+    <Content Include="Views\Home\_PostBlog.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
