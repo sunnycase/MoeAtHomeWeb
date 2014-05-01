@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,24 +25,27 @@ namespace MoeAtHome.Models
         }
 
         /// <summary>
-        /// 日期
+        /// 时间
         /// </summary>
-        public DateTime Date
-        {
-            get { return DateTime.Parse(PartitionKey); }
-            set { PartitionKey = value.ToString(DateFormat); }
-        }
+        public DateTime DateTime { get; set; }
 
         [IgnoreProperty]
         public string DateString
         {
             get { return PartitionKey; }
+            set { PartitionKey = value; }
         }
 
         /// <summary>
         /// 标签
         /// </summary>
-        public List<string> Tags { get; set; }
+        [IgnoreProperty]
+        public List<string> Tags
+        {
+            get { return JsonConvert.DeserializeObject<List<string>>(SerializedTags ?? string.Empty); }
+            set { SerializedTags = JsonConvert.SerializeObject(value); }
+        }
+        public string SerializedTags { get; set; }
 
         /// <summary>
         /// 内容

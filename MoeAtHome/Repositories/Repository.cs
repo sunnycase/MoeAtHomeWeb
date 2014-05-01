@@ -18,6 +18,7 @@ namespace MoeAtHome.Repositories
         public Repository(CloudTable table)
         {
             this.table = table;
+            table.CreateIfNotExists();
         }
 
         public TableResult Add(T entity)

@@ -10,6 +10,9 @@ namespace MoeAtHome.ViewModels
     {
         [Required]
         public string Title { get; set; }
+
+        public List<string> Tags { get; set; }
+
         [Required]
         public string Content { get; set; }
     }

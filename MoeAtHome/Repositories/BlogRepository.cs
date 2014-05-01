@@ -24,5 +24,12 @@ namespace MoeAtHome.Repositories
         {
             return base.FindAsync(date.ToString(Blog.DateFormat), title);
         }
+
+        public IEnumerable<Blog> QueryBlogsDescending(int count)
+        {
+            var query = new TableQuery<Blog>();
+
+            return Table.ExecuteQuery(query).OrderByDescending(o => o.DateTime).Take(count);
+        }
     }
 }

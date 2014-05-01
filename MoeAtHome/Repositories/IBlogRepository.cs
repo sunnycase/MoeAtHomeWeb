@@ -8,6 +8,6 @@ namespace MoeAtHome.Repositories
 {
     public interface IBlogRepository : IRepository<Models.Blog>
     {
-
+        IEnumerable<Models.Blog> QueryBlogsDescending(int count);
     }
 }
