@@ -26,3 +26,5 @@
 /// <reference path="app/appdatactrl.js" />
 /// <reference path="app/userinfomodel.js" />
 /// <reference path="app/postblogctrl.js" />
+/// <reference path="tinymce/tinymce.js"/>
+/// <reference path="angular-ui/tinymce.js"/>

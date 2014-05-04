@@ -39,7 +39,7 @@ namespace MoeAtHome.Models
         public string UserName { get; set; }
 
         [Required]
-        [RegularExpression(@"^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$")]
+        [RegularExpression(@"^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$")]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "邮件地址")]
         public string Email { get; set; }

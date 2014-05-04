@@ -1,5 +1,5 @@
 ﻿
-moeathomeApp.controller('homePageCtrl', ['$scope', '$http', 'appDataService', function ($scope, $http, appDataService) {
+moeathomeApp.controller('homePageCtrl', ['$scope', '$http', '$sce', 'appDataService', function ($scope, $http, $sce, appDataService) {
     document.title = '首页 - Moe@Home';
     var queryRecentBlogsUrl = "/api/blog/queryRecentBlogs";
 
@@ -9,4 +9,8 @@ moeathomeApp.controller('homePageCtrl', ['$scope', '$http', 'appDataService', fu
     }).success(function (data, status) {
         $scope.blogs = data;
     });
+
+    $scope.renderHtml = function (str) {
+        return $sce.trustAsHtml(str);
+    };
 }]);

@@ -10,10 +10,6 @@
     border-style: none;
 }
 
-p {
-    color: #888888;
-}
-
 a:hover {
     color: #00BAFF;
 }
@@ -73,6 +69,7 @@ a {
 
 footer {
     margin: 0 1em;
+    color:#888888;
 }
 
 #title-segment {

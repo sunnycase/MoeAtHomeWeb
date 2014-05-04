@@ -1,6 +1,6 @@
 ﻿
-moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams',
-    function ($scope, $http, $routeParams) {
+moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams', '$sce',
+    function ($scope, $http, $routeParams, $sce) {
         var date = $routeParams.date;
         var title = $routeParams.title;
 
@@ -9,7 +9,12 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams',
         }
 
         var highlight = function () {
-            $('code').each(function (i, e) { hljs.highlightBlock(e) });
+            $('pre').each(function (i, e) {
+                hljs.highlightBlock(e);
+                var $block = $('<div class="ui code segment"><table><tr><td class="gutter"/><td>'
+                    + e.outerHTML + '</td></tr></table></div>');
+                $(e).replaceWith($block);
+            });
             $('.gutter').each(function (i, e) {
                 var $thePre = $('pre', $(e).parent());
                 var lineCount = $thePre.height() / parseFloat($thePre.css('line-height'));
@@ -17,6 +22,11 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams',
                     $(e).append("<div class='line-number'>" + (i + 1) + "</div>");
                 }
             });
+        };
+
+        var renderContent = function (html) {
+            $('.blog-content').html(html);
+            highlight();
         };
 
         var getBlog = function () {
@@ -27,8 +37,8 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams',
                 if (data != 'null') {
                     document.title = data.title + " - Moe@Home";
                     $scope.blog = data;
-                    highlight();
                     $('#post').css('display', 'block');
+                    renderContent(data.content);
                 }
                 else {
                     document.title = "没找到这篇文章 - Moe@Home";

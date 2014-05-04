@@ -40,6 +40,10 @@ namespace MoeAtHome
                 "~/Scripts/app/registerCtrl.js",
                 "~/Scripts/app/postBlogCtrl.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
+                "~/Scripts/tinymce/tinymce.js",
+                "~/Scripts/angular-ui/tinymce.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/semantic.css",
                 "~/Content/Site.css",

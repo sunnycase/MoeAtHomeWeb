@@ -1,5 +1,5 @@
 ﻿
-var moeathomeApp = angular.module('moeathomeApp', ['ngRoute']);
+var moeathomeApp = angular.module('moeathomeApp', ['ngRoute', 'ui.tinymce']);
 
 moeathomeApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     //$locationProvider.html5Mode(true);

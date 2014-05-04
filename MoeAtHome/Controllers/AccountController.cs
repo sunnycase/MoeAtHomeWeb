@@ -44,6 +44,9 @@ namespace MoeAtHome.Controllers
         [Route("userInfo")]
         public UserInfoViewModel GetUserInfo()
         {
+            if (!User.Identity.IsAuthenticated)
+                return null;
+
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
             return new UserInfoViewModel
