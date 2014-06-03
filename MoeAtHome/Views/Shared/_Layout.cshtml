@@ -58,7 +58,22 @@
                 <p>puchi~ tomato</p>
             </div>
         </div>
-        @RenderBody()
+        <div class="ui two column stackable page grid" style="padding:0;">
+            <div class="thirteen wide column" style="margin-top:0;padding-left:0;">
+                @RenderBody()
+            </div>
+            <div class="three wide column" ng-controller="sidebarCtrl" style="margin-top:0;padding-left:0;">
+                <div class="ui segment">
+                    <h3 class="ui dividing header">
+                    <i class="icon inverted small circular blue location"></i> Links</h3>
+                    <ul>
+                        <li ng-repeat="link in links">
+                            <a href="{{link.href}}" target="_blank">{{link.title}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
     <footer>
         <p>Moe@Home &copy; @DateTime.Now.Year Designed by SunnyCase</p>
@@ -67,6 +82,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/semantic")
     @Scripts.Render("~/bundles/highlight")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/tinymce/tinymce.js")"></script>
     @Scripts.Render("~/bundles/tinymce")
     @RenderSection("scripts", required: false)
     <script type="text/javascript">

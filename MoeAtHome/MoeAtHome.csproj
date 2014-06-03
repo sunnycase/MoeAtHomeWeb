@@ -314,6 +314,7 @@
     <Content Include="Scripts\app\loginCtrl.js" />
     <Content Include="Scripts\app\postBlogCtrl.js" />
     <Content Include="Scripts\app\registerCtrl.js" />
+    <Content Include="Scripts\app\sidebarCtrl.js" />
     <Content Include="Scripts\app\userInfoModel.js" />
     <Content Include="Scripts\app\viewBlogCtrl.js" />
     <Content Include="Scripts\errors.json" />

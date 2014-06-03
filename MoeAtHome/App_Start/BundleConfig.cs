@@ -34,6 +34,7 @@ namespace MoeAtHome
                 "~/Scripts/app/userInfoModel.js",
                 "~/Scripts/app/app.js",
                 "~/Scripts/app/appDataCtrl.js",
+                "~/Scripts/app/sidebarCtrl.js",
                 "~/Scripts/app/homePageCtrl.js",
                 "~/Scripts/app/viewBlogCtrl.js",
                 "~/Scripts/app/loginCtrl.js",
@@ -41,7 +42,6 @@ namespace MoeAtHome
                 "~/Scripts/app/postBlogCtrl.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
-                "~/Scripts/tinymce/tinymce.js",
                 "~/Scripts/angular-ui/tinymce.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
