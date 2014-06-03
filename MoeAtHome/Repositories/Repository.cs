@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MoeAtHome.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : TableEntity
+    public class Repository<T> : IRepository<T> where T : TableEntity, new()
     {
         private CloudTable table = null;
         protected CloudTable Table
@@ -75,6 +75,12 @@ namespace MoeAtHome.Repositories
             var operation = TableOperation.Retrieve<T>(partitionKey, rowKey);
 
             return (await table.ExecuteAsync(operation)).Result as T;
+        }
+
+
+        public IQueryable<T> Query()
+        {
+            return table.CreateQuery<T>();
         }
     }
 }

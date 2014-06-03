@@ -8,6 +8,6 @@ namespace MoeAtHome.Repositories
 {
     public interface IBlogCommentRepository : IRepository<BlogComment>
     {
-        IEnumerable<BlogComment> QueryBlogCommentsDescending(BlogKey key, int count);
+        IQueryable<BlogComment> QueryBlogCommentsDescending(BlogKey key);
     }
 }

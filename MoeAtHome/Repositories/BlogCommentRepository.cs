@@ -14,12 +14,12 @@ namespace MoeAtHome.Repositories
         {
         }
 
-        public IEnumerable<BlogComment> QueryBlogCommentsDescending(BlogKey key, int count)
+        public IQueryable<BlogComment> QueryBlogCommentsDescending(BlogKey key)
         {
             var query = new TableQuery<BlogComment>().Where(TableQuery.
                 GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, key.Serialize()));
             
-            return Table.ExecuteQuery(query).OrderByDescending(o => o.DateTime).Take(count);
+            return Table.ExecuteQuery(query).OrderByDescending(o => o.DateTime).AsQueryable();
         }
     }
 }

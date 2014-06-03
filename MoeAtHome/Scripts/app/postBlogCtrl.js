@@ -2,7 +2,7 @@
 moeathomeApp.controller('postBlogCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     document.title = '发表文章 - Moe@Home';
 
-    var postBlogUrl = 'api/blog/postBlog';
+    var postBlogUrl = 'api/blogs';
 
     $scope.enableValidate = false;
 

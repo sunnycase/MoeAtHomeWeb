@@ -8,7 +8,7 @@ namespace MoeAtHome.Models
 {
     public struct BlogKey
     {
-        public string DateTime { get; set; }
+        public DateTime DateTime { get; set; }
         public string Title { get; set; }
 
         public string Serialize()

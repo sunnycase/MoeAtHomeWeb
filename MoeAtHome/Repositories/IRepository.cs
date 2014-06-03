@@ -21,5 +21,7 @@ namespace MoeAtHome.Repositories
         Task<TableResult> RemoveAsync(T entity);
         T Find(string partitionKey, string rowKey);
         Task<T> FindAsync(string partitionKey, string rowKey);
+
+        IQueryable<T> Query();
     }
 }

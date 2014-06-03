@@ -13,11 +13,10 @@ using Microsoft.Owin.Security;
 
 namespace MoeAtHome.Controllers
 {
-    [RoutePrefix("api/blog")]
+    [RoutePrefix("api/blogs")]
     public class BlogController : ApiController
     {
         BlogRepository blogRepository = new BlogRepository(StorageConfig.TableClient);
-        BlogCommentRepository blogCommentRepository = new BlogCommentRepository(StorageConfig.TableClient);
 
         public BlogController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
@@ -34,8 +33,8 @@ namespace MoeAtHome.Controllers
         public UserManager<ApplicationUser> UserManager { get; private set; }
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        // GET api/blog/getBlog
-        [Route("getBlog")]
+        // GET api/blogs/{date}/{title}
+        [Route("{date}/{title}")]
         public ViewModels.Blog GetBlog(DateTime date, string title)
         {
             var blog = blogRepository.FindBlog(date, title);
@@ -50,8 +49,8 @@ namespace MoeAtHome.Controllers
             };
         }
 
-        // POST api/blog/postBlog
-        [Route("postBlog")]
+        // POST api/blogs
+        [HttpPost]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         public async Task<IHttpActionResult> PostBlog(PostBlogViewModel model)
         {
@@ -75,7 +74,7 @@ namespace MoeAtHome.Controllers
                 return BadRequest(ModelState);
             }
 
-            await blogRepository.AddAsync(new Models.Blog()
+            await blogRepository.PostBlogAsync(new Models.Blog()
             {
                 DateTime = date,
                 DateString = date.ToString(Models.Blog.DateFormat),
@@ -86,29 +85,21 @@ namespace MoeAtHome.Controllers
             return Ok();
         }
 
-        [Route("queryRecentBlogs")]
+        //GET api/blogs/recents/{count=10}
+        [Route("recents/{count=10}")]
         [HttpGet]
-        public IEnumerable<ViewModels.Blog> QueryRecentBlogs()
+        public IEnumerable<ViewModels.Blog> QueryRecentBlogs(int count = 10)
         {
-            return blogRepository.QueryBlogsDescending(10).Select(o => new ViewModels.Blog
-                {
-                    Date = o.DateString,
-                    Title = o.Title,
-                    Tags = o.Tags,
-                    Summary = o.Content.Substring(0, Math.Min(o.Content.Length, 200)),
-                    ReadersCount = o.ReadersCount,
-                    CommentsCount = o.CommentsCount
-                });
-        }
-
-        [Route("queryComments")]
-        [HttpGet]
-        public IEnumerable<ViewModels.Comment> QueryComments(BlogKey blogKey, int pageIndex, int pageSize)
-        {
-            return blogCommentRepository.QueryBlogCommentsDescending(blogKey, 0).
-                Select(o => new ViewModels.Comment
-                {
-                });
+            return from b in blogRepository.QueryBlogsDescending(count)
+                   select new ViewModels.Blog
+               {
+                   Date = b.DateString,
+                   Title = b.Title,
+                   Tags = b.Tags,
+                   Summary = b.Content.Substring(0, Math.Min(b.Content.Length, 200)),
+                   ReadersCount = b.ReadersCount,
+                   CommentsCount = b.CommentsCount
+               };
         }
     }
 }

@@ -10,6 +10,8 @@ namespace MoeAtHome
     {
         public static void Register(HttpConfiguration config)
         {
+            // 启用OData
+            config.EnableQuerySupport();
             // Web API 配置和服务
             // 对 JSON 数据使用混合大小写。
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

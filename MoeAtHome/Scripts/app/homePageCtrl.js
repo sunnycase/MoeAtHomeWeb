@@ -1,7 +1,7 @@
 ﻿
 moeathomeApp.controller('homePageCtrl', ['$scope', '$http', '$sce', 'appDataService', function ($scope, $http, $sce, appDataService) {
     document.title = '首页 - Moe@Home';
-    var queryRecentBlogsUrl = "/api/blog/queryRecentBlogs";
+    var queryRecentBlogsUrl = "/api/blogs/recents";
 
     $http({
         method: 'GET',
