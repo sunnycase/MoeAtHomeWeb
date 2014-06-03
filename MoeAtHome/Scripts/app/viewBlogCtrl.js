@@ -82,4 +82,9 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams', '$sc
             //清空评论内容
             $scope.commentContent = '';
         };
+
+        $scope.parseDate = function (date) {
+            var value = new Date(date);
+            return value.toLocaleDateString();
+        };
     }]);

@@ -21,25 +21,11 @@ namespace MoeAtHome.Repositories
             table.CreateIfNotExists();
         }
 
-        public TableResult Add(T entity)
-        {
-            var operation = TableOperation.Insert(entity);
-
-            return table.Execute(operation);
-        }
-
         public Task<TableResult> AddAsync(T entity)
         {
             var operation = TableOperation.Insert(entity);
 
             return table.ExecuteAsync(operation);
-        }
-
-        public TableResult Update(T entity)
-        {
-            var operation = TableOperation.Replace(entity);
-
-            return table.Execute(operation);
         }
 
         public Task<TableResult> UpdateAsync(T entity)
@@ -49,25 +35,11 @@ namespace MoeAtHome.Repositories
             return table.ExecuteAsync(operation);
         }
 
-        public TableResult Remove(T entity)
-        {
-            var operation = TableOperation.Delete(entity);
-
-            return table.Execute(operation);
-        }
-
         public Task<TableResult> RemoveAsync(T entity)
         {
             var operation = TableOperation.Delete(entity);
 
             return table.ExecuteAsync(operation);
-        }
-
-        public T Find(string partitionKey, string rowKey)
-        {
-            var operation = TableOperation.Retrieve<T>(partitionKey, rowKey);
-
-            return table.Execute(operation).Result as T;
         }
 
         public async Task<T> FindAsync(string partitionKey, string rowKey)
@@ -76,7 +48,6 @@ namespace MoeAtHome.Repositories
 
             return (await table.ExecuteAsync(operation)).Result as T;
         }
-
 
         public IQueryable<T> Query()
         {

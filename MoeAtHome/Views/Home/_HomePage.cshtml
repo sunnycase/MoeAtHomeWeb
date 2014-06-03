@@ -7,7 +7,7 @@
                 <a class="ui label" ng-repeat="tag in blog.tags"><i class="tag icon"></i>{{tag}}</a>
             </div>
             <p class="summary" ng-bind-html="renderHtml(blog.summary)"></p>
-            <h5 class="inline gray"><i class="calendar icon"></i>{{blog.date}}</h5>
+            <h5 class="inline gray"><i class="calendar icon"></i>{{parseDate(blog.dateTime)}}</h5>
             <h6 class="inline gray"><i class="comment icon"></i>0</h6>
         </div>
     </section>

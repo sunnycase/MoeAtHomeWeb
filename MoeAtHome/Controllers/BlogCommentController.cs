@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace MoeAtHome.Controllers
@@ -15,7 +16,7 @@ namespace MoeAtHome.Controllers
     [RoutePrefix("api/blog/comments")]
     public class BlogCommentController : ApiController
     {
-        BlogCommentRepository blogCommentRepository = new BlogCommentRepository(StorageConfig.TableClient);
+        IBlogCommentRepository blogCommentRepository = new BlogCommentRepository(StorageConfig.TableClient);
         
         public BlogCommentController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
@@ -35,14 +36,14 @@ namespace MoeAtHome.Controllers
         //GET api/blog/comments/{date}/{title}/{pageIndex}?pageSize=15
         [Route("{date}/{title}/{pageIndex}")]
         [HttpGet]
-        public IEnumerable<ViewModels.Comment> QueryComments(DateTime date, [Required]string title,
-            int pageIndex, int pageSize = 15)
+        public async Task<IEnumerable<ViewModels.Comment>> QueryComments(DateTime date,
+            [Required]string title, int pageIndex, int pageSize = 15)
         {
-            return from c in blogCommentRepository.QueryBlogCommentsDescending(new BlogKey
+            return from c in (await blogCommentRepository.QueryBlogCommentsDescendingAsync(new BlogKey
                 {
                     DateTime = date,
                     Title = title
-                }).Skip(pageIndex * pageSize).Take(pageSize)
+                })).Skip(pageIndex * pageSize).Take(pageSize)
                 select new ViewModels.Comment
                 {
                     AuthorName = c.Author,

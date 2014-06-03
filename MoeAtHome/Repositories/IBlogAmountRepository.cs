@@ -9,6 +9,7 @@ namespace MoeAtHome.Repositories
 {
     public interface IBlogAmountRepository : IRepository<Models.BlogAmount>
     {
-        int GetAmount(DateTime date);
+        Task<int> GetAmountAsync(DateTime date);
+        Task AddAmountAsync(DateTime date);
     }
 }

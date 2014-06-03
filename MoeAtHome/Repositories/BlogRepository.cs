@@ -3,6 +3,7 @@ using MoeAtHome.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -10,17 +11,12 @@ namespace MoeAtHome.Repositories
 {
     public class BlogRepository : Repository<Blog>, IBlogRepository
     {
-        private BlogAmountRepository blogAmountRepo;
+        private IBlogAmountRepository blogAmountRepo;
 
         public BlogRepository(CloudTableClient client)
-            :base(client.GetTableReference(Blog.TableName))
+            : base(client.GetTableReference(Blog.TableName))
         {
             blogAmountRepo = new BlogAmountRepository(client);
-        }
-
-        public Blog FindBlog(DateTime date, string title)
-        {
-            return base.Find(date.ToString(Blog.DateFormat), title);
         }
 
         public Task<Blog> FindBlogAsync(DateTime date, string title)
@@ -31,28 +27,38 @@ namespace MoeAtHome.Repositories
         public async Task PostBlogAsync(Blog blog)
         {
             await AddAsync(blog);
-            await blogAmountRepo.AddAmount(blog.DateTime);
+            await blogAmountRepo.AddAmountAsync(blog.DateTime);
         }
 
-        public IEnumerable<Blog> QueryBlogsDescending(int count)
+        public async Task<IEnumerable<ViewModels.Blog>> QueryRecentsBlogsPrevewAsync(int count)
         {
             var amounts = from b in blogAmountRepo.Query().AsEnumerable()
                           orderby b.Date descending
                           select b;
-            var result = new List<Blog>(count);
+            var result = new List<ViewModels.Blog>(count);
             var toRead = count;
 
             foreach (var a in amounts)
             {
-                if (toRead > 0)
-                {
-                    var blogs = from b in Table.CreateQuery<Blog>()
-                                where b.PartitionKey == a.PartitionKey
-                                select b;
-                    result.AddRange(blogs.Take(toRead).AsEnumerable()
-                        .OrderByDescending(o => o.DateTime));
-                    toRead = count - result.Count;
-                }
+                var thePass = Math.Min(toRead, a.Amount);
+                var blogs = from b in Table.CreateQuery<Blog>()
+                            where b.PartitionKey == a.PartitionKey
+                            select new ViewModels.Blog
+                            {
+                                Date = b.DateString,
+                                DateTime = b.DateTime,
+                                Title = b.Title,
+                                Tags = b.Tags,
+                                Summary = b.Content.Substring(0, Math.Min(b.Content.Length, 200)),
+                                ReadersCount = b.ReadersCount,
+                                CommentsCount = b.CommentsCount
+                            };
+                result.AddRange(blogs.AsEnumerable()
+                    .OrderByDescending(o => o.DateTime).Take(thePass));
+                toRead -= thePass;
+
+                if (toRead == 0)
+                    break;
             }
             return result;
         }

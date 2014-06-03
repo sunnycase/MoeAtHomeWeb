@@ -16,7 +16,7 @@ namespace MoeAtHome.Controllers
     [RoutePrefix("api/blogs")]
     public class BlogController : ApiController
     {
-        BlogRepository blogRepository = new BlogRepository(StorageConfig.TableClient);
+        IBlogRepository blogRepository = new BlogRepository(StorageConfig.TableClient);
 
         public BlogController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
@@ -35,12 +35,12 @@ namespace MoeAtHome.Controllers
 
         // GET api/blogs/{date}/{title}
         [Route("{date}/{title}")]
-        public ViewModels.Blog GetBlog(DateTime date, string title)
+        public async Task<ViewModels.Blog> GetBlog(DateTime date, string title)
         {
-            var blog = blogRepository.FindBlog(date, title);
+            var blog = await blogRepository.FindBlogAsync(date, title);
             return blog == null ? null : new ViewModels.Blog()
             {
-                Date = blog.DateString,
+                DateTime = blog.DateTime,
                 Title = blog.Title,
                 Tags = blog.Tags,
                 Content = blog.Content,
@@ -88,18 +88,9 @@ namespace MoeAtHome.Controllers
         //GET api/blogs/recents/{count=10}
         [Route("recents/{count=10}")]
         [HttpGet]
-        public IEnumerable<ViewModels.Blog> QueryRecentBlogs(int count = 10)
+        public async Task<IEnumerable<ViewModels.Blog>> QueryRecentBlogs(int count = 10)
         {
-            return from b in blogRepository.QueryBlogsDescending(count)
-                   select new ViewModels.Blog
-               {
-                   Date = b.DateString,
-                   Title = b.Title,
-                   Tags = b.Tags,
-                   Summary = b.Content.Substring(0, Math.Min(b.Content.Length, 200)),
-                   ReadersCount = b.ReadersCount,
-                   CommentsCount = b.CommentsCount
-               };
+            return await blogRepository.QueryRecentsBlogsPrevewAsync(count);
         }
     }
 }

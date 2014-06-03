@@ -4,5 +4,8 @@ moeathomeApp.controller('sidebarCtrl', ['$scope', function ($scope) {
     $scope.links = [{
         title: 'CHU的自留地',
         href: 'http://www.bakachu.cn/'
+    }, {
+        title: 'Frimin Studio',
+        href: 'http://www.frimin.com/'
     }];
 }]);

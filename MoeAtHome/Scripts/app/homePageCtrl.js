@@ -13,4 +13,9 @@ moeathomeApp.controller('homePageCtrl', ['$scope', '$http', '$sce', 'appDataServ
     $scope.renderHtml = function (str) {
         return $sce.trustAsHtml(str);
     };
+
+    $scope.parseDate = function (date) {
+        var value = new Date(date);
+        return value.toLocaleDateString();
+    };
 }]);

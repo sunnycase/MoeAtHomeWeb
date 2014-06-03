@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace MoeAtHome.Repositories
 {
     public interface IBlogCommentRepository : IRepository<BlogComment>
     {
-        IQueryable<BlogComment> QueryBlogCommentsDescending(BlogKey key);
+        Task<IEnumerable<BlogComment>> QueryBlogCommentsDescendingAsync(BlogKey key);
     }
 }

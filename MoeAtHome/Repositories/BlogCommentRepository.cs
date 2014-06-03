@@ -3,6 +3,7 @@ using MoeAtHome.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace MoeAtHome.Repositories
@@ -14,12 +15,11 @@ namespace MoeAtHome.Repositories
         {
         }
 
-        public IQueryable<BlogComment> QueryBlogCommentsDescending(BlogKey key)
+        public async Task<IEnumerable<BlogComment>> QueryBlogCommentsDescendingAsync(BlogKey key)
         {
-            var query = new TableQuery<BlogComment>().Where(TableQuery.
-                GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, key.Serialize()));
-            
-            return Table.ExecuteQuery(query).OrderByDescending(o => o.DateTime).AsQueryable();
+            return (from c in Table.CreateQuery<BlogComment>()
+                   where c.PartitionKey == key.Serialize()
+                   select c);
         }
     }
 }

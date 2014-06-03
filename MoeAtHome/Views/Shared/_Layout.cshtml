@@ -66,11 +66,12 @@
                 <div class="ui segment">
                     <h3 class="ui dividing header">
                     <i class="icon inverted small circular blue location"></i> Links</h3>
-                    <ul>
-                        <li ng-repeat="link in links">
+                    <div class="ui list">
+                        <div class="item" ng-repeat="link in links">
+                            <i class="map marker icon"></i>
                             <a href="{{link.href}}" target="_blank">{{link.title}}</a>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -15,9 +15,9 @@ namespace MoeAtHome.Repositories
         {
         }
 
-        public int GetAmount(DateTime date)
+        public async Task<int> GetAmountAsync(DateTime date)
         {
-            var amount = this.Find(date.ToString(BlogAmount.DateFormat), BlogAmount.TableName);
+            var amount = await this.FindAsync(date.ToString(BlogAmount.DateFormat), BlogAmount.TableName);
             if (amount != null)
             {
                 return amount.Amount;
@@ -25,7 +25,7 @@ namespace MoeAtHome.Repositories
             return 0;
         }
 
-        public async Task AddAmount(DateTime date)
+        public async Task AddAmountAsync(DateTime date)
         {
             var amount = await this.FindAsync(date.ToString(BlogAmount.DateFormat), BlogAmount.TableName);
             if (amount != null)
@@ -41,16 +41,6 @@ namespace MoeAtHome.Repositories
                         Amount = 0
                     });
             }
-        }
-
-        public async Task<int> GetAmountAsync(DateTime date)
-        {
-            var amount = await this.FindAsync(date.ToString(BlogAmount.DateFormat), BlogAmount.TableName);
-            if (amount != null)
-            {
-                return amount.Amount;
-            }
-            return 0;
         }
     }
 }
