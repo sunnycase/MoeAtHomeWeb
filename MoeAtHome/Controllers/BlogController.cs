@@ -17,6 +17,8 @@ namespace MoeAtHome.Controllers
     public class BlogController : ApiController
     {
         BlogRepository blogRepository = new BlogRepository(StorageConfig.TableClient);
+        BlogCommentRepository blogCommentRepository = new BlogCommentRepository(StorageConfig.TableClient);
+
         public BlogController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
         {
@@ -96,6 +98,16 @@ namespace MoeAtHome.Controllers
                     Summary = o.Content.Substring(0, Math.Min(o.Content.Length, 200)),
                     ReadersCount = o.ReadersCount,
                     CommentsCount = o.CommentsCount
+                });
+        }
+
+        [Route("queryComments")]
+        [HttpGet]
+        public IEnumerable<ViewModels.Comment> QueryComments(BlogKey blogKey, int pageIndex, int pageSize)
+        {
+            return blogCommentRepository.QueryBlogCommentsDescending(blogKey, 0).
+                Select(o => new ViewModels.Comment
+                {
                 });
         }
     }

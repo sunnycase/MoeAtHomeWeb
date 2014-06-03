@@ -8,7 +8,6 @@
             </div>
             <h5 class="inline gray"><i class="calendar icon"></i>{{blog.date}}</h5>
             <h6 class="inline gray">
-                <i class="user icon"></i>{{blog.readersCount}}
                 <i class="comment icon"></i>{{blog.commentsCount}}
             </h6>
             <p class="blog-content"></p>
@@ -18,5 +17,30 @@
         <h4 class="ui red message">
             您要找的文章不存在。
         </h4>
+    </section>
+    <section id="comments" class="ui piled blue segment">
+        <h4 class="ui dividing header">
+            <i class="icon inverted circular blue comment"></i> 评论
+        </h4>
+        <div class="ui comments">
+            <div class="comment">
+                <a class="avatar">
+                    <img src="~/images/title-background.jpg">
+                </a>
+                <div class="content">
+                    <a class="author">xx</a>
+                    <div class="metadata">
+                        <span class="date">2天前</span>
+                    </div>
+                    <div class="text">
+                        xxxx！
+                    </div>
+                    <div class="actions">
+                        <a class="reply">回复</a>
+                        <a class="delete">删除</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </div>

@@ -59,4 +59,27 @@ moeathomeApp.controller('postBlogCtrl', ['$scope', '$http', '$location', functio
             });
         }
     };
+
+    //tinymce配置
+    $scope.tinymceOptions = {
+        //语言
+        language: 'zh_CN',
+        //拼写检查
+        browser_spellcheck: true,
+        //插件
+        plugins: 'code image link autolink autosave textcolor table preview searchreplace \
+                  emoticons visualblocks insertcode',
+        //工具栏
+        toolbar: [
+            'undo redo | formatselect bold italic alignleft aligncenter alignright | forecolor backcolor \
+            | searchreplace | link image emoticons insertcode | code preview'
+        ],
+        tools: 'inserttable',
+        table_default_attributes: {
+            class: 'ui table segment'
+        },
+        visualblocks_default_state: true,
+        forced_root_block: false,
+        height: 300,
+    };
 }]);

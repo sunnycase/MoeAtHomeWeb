@@ -31,7 +31,8 @@
         <div class="field" ng-class="{true: 'error'}[content.hasError()]">
             <label for="content" class="control-label">内容</label>
             <div class="ui left labeled input">
-                <textarea ui-tinymce ng-model="content.value" placeholder="内容"></textarea>
+                <textarea ui-tinymce="tinymceOptions" 
+                          ng-model="content.value"></textarea>
                 <div class="ui corner label">
                     <i class="icon asterisk"></i>
                 </div>

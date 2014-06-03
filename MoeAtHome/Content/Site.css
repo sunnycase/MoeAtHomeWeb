@@ -134,3 +134,11 @@ footer {
 .blog-content{
     color:black;
 }
+
+.ui.comments{
+    font-size:10px;
+}
+
+.ui.comments .comment .avatar img{
+    border-radius:0;
+}
