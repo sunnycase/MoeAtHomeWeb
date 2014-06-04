@@ -7,6 +7,9 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams', '$sc
         var getBlogUrl = function (date, title) {
             return '/api/blogs/' + date + "/" + title;
         }
+        var getCommentsUrl = function (date, title, lastTick){
+            return '/api/blogs/comments/' + date + "/" + title + "/" + lastTick;
+        };
 
         var highlight = function () {
             $('pre').each(function (i, e) {
@@ -53,20 +56,18 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams', '$sc
             return new Array(n);
         };
 
+        $scope.lastTick = 0;
         //加载评论
         var loadComments = function () {
-            $scope.comments = [{
-                floor: 1,
-                author: '岁纳Tomato',
-                dateTime: '2014-6-3 18:16:54',
-                content: '后哈哈哈哈哈哈哈哈哈哈哈哈哈'
-            }, {
-                floor: 2,
-                author: '帝球',
-                dateTime: '2014-6-3 18:19:44',
-                content: 'びほびほびほ'
-            }
-            ];
+            $http({
+                method: 'GET',
+                url: getCommentsUrl(date, title, $scope.lastTick)
+            }).success(function (data, status) {
+                if (data != 'null') {
+                }
+            }).error(function (data, status) {
+                // Some error occurred
+            });
         };
 
         $scope.onLoaded = function () {

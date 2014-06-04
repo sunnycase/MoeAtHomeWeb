@@ -13,7 +13,7 @@ using System.Web.Http;
 
 namespace MoeAtHome.Controllers
 {
-    [RoutePrefix("api/blog/comments")]
+    [RoutePrefix("api/blogs/comments")]
     public class BlogCommentController : ApiController
     {
         IBlogCommentRepository blogCommentRepository = new BlogCommentRepository(StorageConfig.TableClient);
@@ -33,17 +33,17 @@ namespace MoeAtHome.Controllers
         public UserManager<ApplicationUser> UserManager { get; private set; }
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        //GET api/blog/comments/{date}/{title}/{pageIndex}?pageSize=15
-        [Route("{date}/{title}/{pageIndex}")]
+        //GET api/blogs/comments/{date}/{title}/{lastTick}?pageSize=15
+        [Route("{date}/{title}/{lastTick}")]
         [HttpGet]
         public async Task<IEnumerable<ViewModels.Comment>> QueryComments(DateTime date,
-            [Required]string title, int pageIndex, int pageSize = 15)
+            [Required]string title, long lastTick, int pageSize = 15)
         {
             return from c in (await blogCommentRepository.QueryBlogCommentsDescendingAsync(new BlogKey
                 {
                     DateTime = date,
                     Title = title
-                })).Skip(pageIndex * pageSize).Take(pageSize)
+                }, lastTick, pageSize)).AsEnumerable()
                 select new ViewModels.Comment
                 {
                     AuthorName = c.Author,
@@ -69,8 +69,7 @@ namespace MoeAtHome.Controllers
                     {
                         AuthorName = c.Author,
                         Content = c.Content,
-                        DateTime = c.DateTime,
-                        NestedComments = ReadNestedComments(c.NestedComments)
+                        DateTime = c.DateTime
                     });
             }
         }

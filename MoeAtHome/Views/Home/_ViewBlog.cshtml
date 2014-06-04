@@ -2,14 +2,14 @@
 <div class="main container" ng-controller="viewBlogCtrl" ng-init="onLoaded()">
     <section id="post" style="display:none;">
         <div class="ui segment">
-            <h4 class="ui teal header">{{blog.title}}</h4>
+            <h3 class="ui teal dividing header">{{blog.title}}</h3>
             <div class="ui small labels">
+                <h5 class="inline gray"><i class="calendar icon"></i>{{parseDate(blog.dateTime)}}</h5>
+                <h6 class="inline gray">
+                    <i class="comment icon"></i>{{blog.commentsCount}}
+                </h6>
                 <a class="ui label" ng-repeat="tag in blog.tags"><i class="tag icon"></i>{{tag}}</a>
             </div>
-            <h5 class="inline gray"><i class="calendar icon"></i>{{parseDate(blog.dateTime)}}</h5>
-            <h6 class="inline gray">
-                <i class="comment icon"></i>{{blog.commentsCount}}
-            </h6>
             <p class="blog-content"></p>
         </div>
     </section>

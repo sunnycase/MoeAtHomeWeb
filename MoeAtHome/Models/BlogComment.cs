@@ -34,9 +34,18 @@ namespace MoeAtHome.Models
         }
 
         /// <summary>
+        /// Id
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// 回复时间
         /// </summary>
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime
+        {
+            get { return new DateTime(long.Parse(RowKey)); }
+            set { RowKey = (DateTime.MaxValue.Ticks - value.Ticks).ToString("D19"); }
+        }
 
         /// <summary>
         /// 作者
@@ -69,7 +78,7 @@ namespace MoeAtHome.Models
 
         public BlogComment()
         {
-            RowKey = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace MoeAtHome.Repositories
 {
     public interface IBlogCommentRepository : IRepository<BlogComment>
     {
-        Task<IEnumerable<BlogComment>> QueryBlogCommentsDescendingAsync(BlogKey key);
+        Task<IQueryable<BlogComment>> QueryBlogCommentsDescendingAsync(BlogKey key, 
+            long startRowTick, int count);
     }
 }

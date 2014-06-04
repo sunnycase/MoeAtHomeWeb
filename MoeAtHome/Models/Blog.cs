@@ -42,10 +42,15 @@ namespace MoeAtHome.Models
         [IgnoreProperty]
         public List<string> Tags
         {
-            get { return JsonConvert.DeserializeObject<List<string>>(SerializedTags ?? string.Empty); }
+            get { return GetTags(SerializedTags); }
             set { SerializedTags = JsonConvert.SerializeObject(value); }
         }
         public string SerializedTags { get; set; }
+
+        public static List<string> GetTags(string serialized)
+        {
+            return JsonConvert.DeserializeObject<List<string>>(serialized ?? string.Empty);
+        }
 
         /// <summary>
         /// 内容

@@ -2,8 +2,12 @@
 <div class="main container" ng-controller="homePageCtrl">
     <section id="blogs" ng-repeat="blog in blogs">
         <div class="ui segment">
-            <a class="ui teal header" href="#/blog/{{blog.date}}/{{blog.title}}"><h4 class="ui header">{{blog.title}}</h4></a>
-            <div class="ui small labels">
+            <a class="teal header" href="#/blog/{{blog.date}}/{{blog.title}}">
+                <h3 class="ui header">
+                    <i class="circular inverted icon blue file"></i> {{blog.title}}
+                </h3>
+            </a>
+            <div class="ui small labels" style="margin-top:.8em;">
                 <a class="ui label" ng-repeat="tag in blog.tags"><i class="tag icon"></i>{{tag}}</a>
             </div>
             <p class="summary" ng-bind-html="renderHtml(blog.summary)"></p>

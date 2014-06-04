@@ -7,5 +7,8 @@ moeathomeApp.controller('sidebarCtrl', ['$scope', function ($scope) {
     }, {
         title: 'Frimin Studio',
         href: 'http://www.frimin.com/'
+    }, {
+        title: 'invwindy',
+        href: 'http://invwindy.mist.so/'
     }];
 }]);

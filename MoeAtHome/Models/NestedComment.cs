@@ -11,7 +11,6 @@ namespace MoeAtHome.Models
         public string Author { get; set; }
         public DateTime DateTime { get; set; }
         public string Content { get; set; }
-        public List<NestedComment> NestedComments { get; set; }
         public string Serialize()
         {
             return JsonConvert.SerializeObject(this);

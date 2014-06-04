@@ -15,11 +15,25 @@ namespace MoeAtHome.Repositories
         {
         }
 
-        public async Task<IEnumerable<BlogComment>> QueryBlogCommentsDescendingAsync(BlogKey key)
+        public async Task<IQueryable<BlogComment>> QueryBlogCommentsDescendingAsync(
+            BlogKey key, long startRowTick, int count)
         {
+            var keySerial = key.Serialize();
+            var startRowTickSerial = startRowTick.ToString("D19");
+            var startComment = await FindAsync(keySerial, startRowTickSerial);
+            //没找到开始数据
+            //从头查找
+            if (startComment == null)
+            {
+                return (from c in Table.CreateQuery<BlogComment>()
+                        where c.PartitionKey == key.Serialize()
+                        select c).Take(count);
+            }
+
+            //RowKey递增排序
             return (from c in Table.CreateQuery<BlogComment>()
-                   where c.PartitionKey == key.Serialize()
-                   select c);
+                    where c.PartitionKey == key.Serialize() && c.RowKey.CompareTo(startRowTickSerial) > 0
+                    select c).Take(count);
         }
     }
 }

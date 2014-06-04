@@ -43,18 +43,28 @@ namespace MoeAtHome.Repositories
                 var thePass = Math.Min(toRead, a.Amount);
                 var blogs = from b in Table.CreateQuery<Blog>()
                             where b.PartitionKey == a.PartitionKey
-                            select new ViewModels.Blog
+                            select new
                             {
                                 Date = b.DateString,
                                 DateTime = b.DateTime,
                                 Title = b.Title,
-                                Tags = b.Tags,
+                                Tags = b.SerializedTags,
                                 Summary = b.Content.Substring(0, Math.Min(b.Content.Length, 200)),
                                 ReadersCount = b.ReadersCount,
                                 CommentsCount = b.CommentsCount
                             };
-                result.AddRange(blogs.AsEnumerable()
-                    .OrderByDescending(o => o.DateTime).Take(thePass));
+
+                result.AddRange(blogs.AsEnumerable().OrderByDescending(o => o.DateTime).Take(thePass)
+                    .Select(o => new ViewModels.Blog
+                    {
+                        Date = o.Date,
+                        DateTime = o.DateTime,
+                        Title = o.Title,
+                        Summary = o.Summary,
+                        ReadersCount = o.ReadersCount,
+                        CommentsCount = o.CommentsCount,
+                        Tags = Blog.GetTags(o.Tags),
+                    }));
                 toRead -= thePass;
 
                 if (toRead == 0)
