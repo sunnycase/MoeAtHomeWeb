@@ -7,8 +7,11 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams', '$sc
         var getBlogUrl = function (date, title) {
             return '/api/blogs/' + date + "/" + title;
         }
-        var getCommentsUrl = function (date, title, lastTick){
+        var getCommentsUrl = function (date, title, lastTick) {
             return '/api/blogs/comments/' + date + "/" + title + "/" + lastTick;
+        };
+        var postCommentUrl = function (date, title) {
+            return 'api/blogs/comments/' + date + "/" + title;
         };
 
         var highlight = function () {
@@ -56,6 +59,7 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams', '$sc
             return new Array(n);
         };
 
+        $scope.comments = [];
         $scope.lastTick = 0;
         //加载评论
         var loadComments = function () {
@@ -64,6 +68,7 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams', '$sc
                 url: getCommentsUrl(date, title, $scope.lastTick)
             }).success(function (data, status) {
                 if (data != 'null') {
+                    $scope.comments = data;
                 }
             }).error(function (data, status) {
                 // Some error occurred
@@ -75,17 +80,54 @@ moeathomeApp.controller('viewBlogCtrl', ['$scope', '$http', '$routeParams', '$sc
             loadComments();
         };
 
+        $scope.enableValidate = false;
+
         //评论内容
-        $scope.commentContent = '';
+        $scope.commentContent = {
+            value: '',
+            hasError: function () {
+                return $scope.enableValidate && $scope.commentContent.value == '';
+            },
+            errorMessage: '内容不能为空哦。'
+        };
         //发表评论
         $scope.postComment = function () {
-            alert($scope.commentContent);
-            //清空评论内容
-            $scope.commentContent = '';
+            $scope.enableValidate = true;
+            if (!$scope.commentContent.hasError()) {
+                $http({
+                    method: 'POST',
+                    url: postCommentUrl(date, title),
+                    data: $.param({
+                        content: $scope.commentContent.value
+                    }),
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).success(function (data, status) {
+                    //清空评论内容
+                    $scope.commentContent.value = '';
+                    $scope.enableValidate = false;
+                    //重新加载
+                    loadComments();
+                }).error(function (data, status) {
+                    if (data && data.error_description) {
+                        $scope.errors.push(data.error_description);
+                    } else {
+                        $scope.errors.push("发生了奇怪的问题。");
+                    }
+                });
+            }
         };
 
         $scope.parseDate = function (date) {
             var value = new Date(date);
             return value.toLocaleDateString();
+        };
+
+        $scope.parseDateTime = function (date) {
+            var value = new Date(date);
+            return value.toLocaleString();
+        };
+
+        $scope.parseAuthor = function (author) {
+            return author == null ? '匿名' : author;
         };
     }]);

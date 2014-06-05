@@ -9,8 +9,8 @@ namespace MoeAtHome.ViewModels
     {
         public DateTime DateTime { get; set; }
         public string AuthorName { get; set; }
-        public string Avatar { get; set; }
+        public int Floor { get; set; }
         public string Content { get; set; }
-        public List<Comment> NestedComments { get; set; }
+        public IEnumerable<Comment> NestedComments { get; set; }
     }
 }

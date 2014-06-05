@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using MoeAtHome.Models;
 using Microsoft.Owin.Security;
+using MoeAtHome.WorkUnits;
 
 namespace MoeAtHome.Controllers
 {
     [RoutePrefix("api/blogs")]
     public class BlogController : ApiController
     {
-        IBlogRepository blogRepository = new BlogRepository(StorageConfig.TableClient);
+        IBlogWorkUnit blogWorkUnit = new BlogWorkUnit(StorageConfig.TableClient);
 
         public BlogController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
@@ -37,7 +38,7 @@ namespace MoeAtHome.Controllers
         [Route("{date}/{title}")]
         public async Task<ViewModels.Blog> GetBlog(DateTime date, string title)
         {
-            var blog = await blogRepository.FindBlogAsync(date, title);
+            var blog = await blogWorkUnit.FindBlogAsync(date, title);
             return blog == null ? null : new ViewModels.Blog()
             {
                 DateTime = blog.DateTime,
@@ -67,14 +68,14 @@ namespace MoeAtHome.Controllers
                 return BadRequest(ModelState);
             }
 
-            var date = DateTime.Now;
-            if (await blogRepository.FindBlogAsync(date, model.Title) != null)
+            var date = DateTime.UtcNow;
+            if (await blogWorkUnit.FindBlogAsync(date, model.Title) != null)
             {
                 ModelState.AddModelError("Title", "今天已经发过同样标题的文章了哦。");
                 return BadRequest(ModelState);
             }
 
-            await blogRepository.PostBlogAsync(new Models.Blog()
+            await blogWorkUnit.PostBlogAsync(new Models.Blog()
             {
                 DateTime = date,
                 DateString = date.ToString(Models.Blog.DateFormat),
@@ -90,7 +91,7 @@ namespace MoeAtHome.Controllers
         [HttpGet]
         public async Task<IEnumerable<ViewModels.Blog>> QueryRecentBlogs(int count = 10)
         {
-            return await blogRepository.QueryRecentsBlogsPrevewAsync(count);
+            return await blogWorkUnit.QueryRecentsBlogsPrevewAsync(count);
         }
     }
 }

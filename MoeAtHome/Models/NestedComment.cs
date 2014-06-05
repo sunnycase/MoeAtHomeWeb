@@ -11,14 +11,5 @@ namespace MoeAtHome.Models
         public string Author { get; set; }
         public DateTime DateTime { get; set; }
         public string Content { get; set; }
-        public string Serialize()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
-
-        public static BlogKey Deserialize(string value)
-        {
-            return JsonConvert.DeserializeObject<BlogKey>(value);
-        }
     }
 }

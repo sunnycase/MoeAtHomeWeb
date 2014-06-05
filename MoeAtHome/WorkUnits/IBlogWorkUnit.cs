@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoeAtHome.Repositories
+namespace MoeAtHome.WorkUnits
 {
-    public interface IBlogRepository : IRepository<Models.Blog>
+    public interface IBlogWorkUnit
     {
         Task<Models.Blog> FindBlogAsync(DateTime date, string title);
         Task PostBlogAsync(Models.Blog blog);

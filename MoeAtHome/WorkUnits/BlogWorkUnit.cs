@@ -1,5 +1,6 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
 using MoeAtHome.Models;
+using MoeAtHome.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,41 +8,40 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace MoeAtHome.Repositories
+namespace MoeAtHome.WorkUnits
 {
-    public class BlogRepository : Repository<Blog>, IBlogRepository
+    public class BlogWorkUnit : IBlogWorkUnit
     {
-        private IBlogAmountRepository blogAmountRepo;
+        private IBlogAmountWorkUnit blogAmountWorkUnit;
+        private IRepository<Blog> blogRepo;
 
-        public BlogRepository(CloudTableClient client)
-            : base(client.GetTableReference(Blog.TableName))
+        public BlogWorkUnit(CloudTableClient client)
         {
-            blogAmountRepo = new BlogAmountRepository(client);
+            blogAmountWorkUnit = new BlogAmountWorkUnit(client);
+            blogRepo = new Repository<Blog>(client.GetTableReference(Blog.TableName));
         }
 
         public Task<Blog> FindBlogAsync(DateTime date, string title)
         {
-            return base.FindAsync(date.ToString(Blog.DateFormat), title);
+            return blogRepo.FindAsync(date.ToString(Blog.DateFormat), title);
         }
 
         public async Task PostBlogAsync(Blog blog)
         {
-            await AddAsync(blog);
-            await blogAmountRepo.AddAmountAsync(blog.DateTime);
+            await blogRepo.AddAsync(blog);
+            await blogAmountWorkUnit.AddAmountAsync(blog.DateTime);
         }
 
         public async Task<IEnumerable<ViewModels.Blog>> QueryRecentsBlogsPrevewAsync(int count)
         {
-            var amounts = from b in blogAmountRepo.Query().AsEnumerable()
-                          orderby b.Date descending
-                          select b;
+            var amounts = await blogAmountWorkUnit.QueryAllAmountsDesendingAsync();
             var result = new List<ViewModels.Blog>(count);
             var toRead = count;
 
             foreach (var a in amounts)
             {
                 var thePass = Math.Min(toRead, a.Amount);
-                var blogs = from b in Table.CreateQuery<Blog>()
+                var blogs = from b in blogRepo.Query()
                             where b.PartitionKey == a.PartitionKey
                             select new
                             {

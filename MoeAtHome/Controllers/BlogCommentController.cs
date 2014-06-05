@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using MoeAtHome.Models;
-using MoeAtHome.Repositories;
+using MoeAtHome.WorkUnits;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,7 +16,7 @@ namespace MoeAtHome.Controllers
     [RoutePrefix("api/blogs/comments")]
     public class BlogCommentController : ApiController
     {
-        IBlogCommentRepository blogCommentRepository = new BlogCommentRepository(StorageConfig.TableClient);
+        IBlogCommentWorkUnit blogCommentWorkUnit = new BlogCommentWorkUnit(StorageConfig.TableClient);
         
         public BlogCommentController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
@@ -39,39 +39,27 @@ namespace MoeAtHome.Controllers
         public async Task<IEnumerable<ViewModels.Comment>> QueryComments(DateTime date,
             [Required]string title, long lastTick, int pageSize = 15)
         {
-            return from c in (await blogCommentRepository.QueryBlogCommentsDescendingAsync(new BlogKey
+            return await blogCommentWorkUnit.QueryBlogCommentsDescendingAsync(new BlogKey
                 {
                     DateTime = date,
                     Title = title
-                }, lastTick, pageSize)).AsEnumerable()
-                select new ViewModels.Comment
+                }, lastTick, pageSize);
+        }
+
+        //POST api/blogs/comments/{date}/{title}
+        [Route("{date}/{title}")]
+        [HttpPost]
+        public async Task<IHttpActionResult> PostComment(DateTime date,
+            [Required]string title, [FromBody] ViewModels.PostBlogCommentViewModel model)
+        {
+            var author = User.Identity.IsAuthenticated ? User.Identity.Name : null;
+            await blogCommentWorkUnit.PostBlogCommentAsync(new BlogKey
                 {
-                    AuthorName = c.Author,
-                    Content = c.Content,
-                    DateTime = c.DateTime,
-                    NestedComments = ReadNestedComments(c.NestedComments)
-                };
-        }
+                    DateTime = date,
+                    Title = title,
+                }, author, DateTime.UtcNow, model.Content);
 
-        private static List<ViewModels.Comment> ReadNestedComments(IEnumerable<NestedComment> comments)
-        {
-            var results = new List<ViewModels.Comment>();
-
-            ReadNestedCommentsCore(comments, results);
-            return results;
-        }
-
-        private static void ReadNestedCommentsCore(IEnumerable<NestedComment> comments, List<ViewModels.Comment> results)
-        {
-            foreach (var c in comments)
-            {
-                results.Add(new ViewModels.Comment
-                    {
-                        AuthorName = c.Author,
-                        Content = c.Content,
-                        DateTime = c.DateTime
-                    });
-            }
+            return Ok();
         }
     }
 }

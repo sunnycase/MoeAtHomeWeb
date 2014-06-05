@@ -12,21 +12,26 @@
                 <div class="metadata">
                     <span class="floor">#{{comment.floor}}</span>
                 </div>
-                <a class="author">{{comment.author}}</a>
+                <a class="author">{{parseAuthor(comment.authorName)}}</a>
                 <div class="metadata">
-                    <span class="date">{{comment.dateTime}}</span>
+                    <span class="date">{{parseDateTime(comment.dateTime)}}</span>
                 </div>
                 <div class="text">{{comment.content}}</div>
                 @*<div class="actions">
-                    <a class="reply">回复</a>
-                    <a class="delete">删除</a>
-                </div>*@
+                        <a class="reply">回复</a>
+                        <a class="delete">删除</a>
+                    </div>*@
             </div>
         </div>
     </div>
     <form class="ui reply form segment">
-        <div class="field">
-            <textarea ng-model="commentContent" placeholder="我也来评论一下！"></textarea>
+        <div class="field" ng-class="{true: 'error'}[commentContent.hasError()]">
+            <textarea ng-model="commentContent.value" placeholder="我也来评论一下！"></textarea>
+            <div class="ui corner label">
+                <i class="icon asterisk"></i>
+            </div>
+            <span class="ui red pointing above ui label"
+                  ng-show="commentContent.hasError()">{{commentContent.errorMessage}}</span>
         </div>
         <div class="ui blue labeled submit icon button" ng-click="postComment()">
             <i class="icon edit"></i> 发表评论

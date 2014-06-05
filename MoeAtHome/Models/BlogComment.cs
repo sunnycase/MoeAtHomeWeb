@@ -39,11 +39,16 @@ namespace MoeAtHome.Models
         public Guid Id { get; set; }
 
         /// <summary>
+        /// 楼层
+        /// </summary>
+        public int Floor { get; set; }
+
+        /// <summary>
         /// 回复时间
         /// </summary>
         public DateTime DateTime
         {
-            get { return new DateTime(long.Parse(RowKey)); }
+            get { return new DateTime(DateTime.MaxValue.Ticks - long.Parse(RowKey)); }
             set { RowKey = (DateTime.MaxValue.Ticks - value.Ticks).ToString("D19"); }
         }
 
@@ -66,7 +71,7 @@ namespace MoeAtHome.Models
             get
             {
                 return JsonConvert.DeserializeObject<List<NestedComment>>(
-                    SerializedNestedComments ?? string.Empty);
+                    SerializedNestedComments ?? "[]");
             }
             set { SerializedNestedComments = JsonConvert.SerializeObject(value); }
         }
