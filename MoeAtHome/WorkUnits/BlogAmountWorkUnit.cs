@@ -41,7 +41,7 @@ namespace MoeAtHome.WorkUnits
                 await blogRepo.AddAsync(new BlogAmount
                     {
                         Date = date,
-                        Amount = 0
+                        Amount = 1
                     });
             }
         }

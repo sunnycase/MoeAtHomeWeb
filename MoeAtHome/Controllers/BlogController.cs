@@ -51,6 +51,7 @@ namespace MoeAtHome.Controllers
         }
 
         // POST api/blogs
+        [Route]
         [HttpPost]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         public async Task<IHttpActionResult> PostBlog(PostBlogViewModel model)

@@ -66,18 +66,16 @@ namespace MoeAtHome.WorkUnits
                     BlogKey = key,
                     DateTime = dateTime,
                     Content = content,
-                    Floor = await GetAvailableFloor(key)
+                    Floor = await GetAvailableFloorAsync(key)
                 });
         }
 
-        private async Task<int> GetAvailableFloor(BlogKey key)
+        private async Task<int> GetAvailableFloorAsync(BlogKey key)
         {
-            var floors = (from c in blogCommentRepo.Query()
-                            where c.PartitionKey == key.Serialize()
-                            select c.Floor).Take(1).ToList();
-            if (floors.Count == 0)
-                return 1;
-            return floors.Single() + 1;
+            var floor = (from c in blogCommentRepo.Query()
+                         where c.PartitionKey == key.Serialize()
+                         select c.Floor).Take(1).SingleOrDefault();
+            return floor + 1;
         }
     }
 }

@@ -287,7 +287,6 @@
     <Content Include="Fonts\icons.otf" />
     <Content Include="Fonts\icons.ttf" />
     <Content Include="Fonts\icons.woff" />
-    <None Include="Properties\PublishProfiles\MoeAtHome.pubxml" />
     <Content Include="Images\default-avatar.png" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -582,6 +581,7 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <None Include="Properties\PublishProfiles\moeathome.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
