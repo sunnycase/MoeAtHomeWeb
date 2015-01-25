@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MoeAtHome.Repositories;
-using Microsoft.WindowsAzure.Storage.Table;
 
 namespace MoeAtHome.Controllers
 {
@@ -15,29 +13,18 @@ namespace MoeAtHome.Controllers
             return View();
         }
 
-        public ActionResult _ViewBlog()
+        public ActionResult About()
         {
-            return PartialView();
+            ViewBag.Message = "Your application description page.";
+
+            return View();
         }
 
-        public ActionResult _HomePage()
+        public ActionResult Contact()
         {
-            return PartialView();
-        }
+            ViewBag.Message = "Your contact page.";
 
-        public ActionResult _Login()
-        {
-            return PartialView();
-        }
-
-        public ActionResult _Register()
-        {
-            return PartialView();
-        }
-
-        public ActionResult _PostBlog()
-        {
-            return PartialView();
+            return View();
         }
     }
 }
