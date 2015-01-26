@@ -15,16 +15,13 @@ namespace MoeAtHome.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        [ChildActionOnly]
+        public ActionResult _Links()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return PartialView();
         }
     }
 }

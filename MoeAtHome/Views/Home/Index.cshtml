@@ -1,31 +1,29 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "主页";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col-md-8">
+        <div class="home blogs list-group">
+            @for (int i = 0; i < 1; i++)
+            {
+                <div class="blog list-group-item">
+                    <div class="panel-body">
+                        <h2 class="header">自己写Blog真麻烦啊</h2>
+                        <h4 class="datetime">@DateTime.Now.ToString("d")</h4>
+                        <p>@Html.Raw("<p>目前前端用angularjs + semantic ui，后端用asp.net webapi。<br/>下一步该处理文章排版问题了。。<br/>对xss也没找到好用的库，anti-xss没啥可定制性。难道又要自己造轮子了么 _(:з」&ang;)_</p>")</p>
+                        <hr/>
+                        <div class="bottom row container-fluid">
+                            <div class="tags col-xs-5">
+                                <span class="glyphicon glyphicon-tags"></span>&nbsp;
+                                <span>BLOG, 日常</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        @Html.Partial("_Links")
     </div>
 </div>
