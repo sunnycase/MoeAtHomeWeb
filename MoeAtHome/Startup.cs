@@ -8,6 +8,7 @@ namespace MoeAtHome
     {
         public void Configuration(IAppBuilder app)
         {
+            ConfigCQRS(app);
             ConfigureAuth(app);
         }
     }

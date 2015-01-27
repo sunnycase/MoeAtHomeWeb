@@ -159,3 +159,4 @@ $RECYCLE.BIN/
 .DS_Store
 /MoeAtHome.sln.ide
 /packages
+/MoeAtHome/Properties/PublishProfiles
