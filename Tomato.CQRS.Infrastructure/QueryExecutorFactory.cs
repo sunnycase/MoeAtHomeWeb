@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,7 +15,7 @@ namespace Tomato.CQRS.Infrastructure
     {
         private readonly string executorsDefineNamespace;
         private readonly Assembly executorsDefineAssembly;
-        private Dictionary<Type, Type> cachedExecutorTypes = new Dictionary<Type, Type>();
+        private static ConcurrentDictionary<Type, Type> cachedExecutorTypes = new ConcurrentDictionary<Type, Type>();
 
         public QueryExecutorFactory(Assembly executorsDefineAssembly, string executorsDefineNamespace)
         {
@@ -30,22 +31,21 @@ namespace Tomato.CQRS.Infrastructure
         /// <returns>查询执行器</returns>
         public IQueryExecutor<IQuery<TResult>, TResult> Create<TResult>(Type queryType)
         {
-            Type executorType;
-            if (!cachedExecutorTypes.TryGetValue(queryType, out executorType))
+            var executorType = cachedExecutorTypes.GetOrAdd(queryType, _ =>
             {
-                executorType = GetQueryExecutorTypes(queryType, typeof(TResult)).FirstOrDefault();
+                var type = GetQueryExecutorTypes<TResult>(queryType).FirstOrDefault();
 
-                if (executorType != null)
-                    cachedExecutorTypes.Add(queryType, executorType);
+                if (type != null)
+                    return type;
                 else
-                    throw new UnregisteredQueryExecutorException(queryType);
-            }
+                    throw new UnregisteredCommandExecutorException(queryType);
+            });
             return (IQueryExecutor<IQuery<TResult>, TResult>)ServiceLocator.Default.GetPerSession(executorType);
         }
 
-        protected virtual IEnumerable<Type> GetQueryExecutorTypes(Type queryType, Type resultType)
+        protected virtual IEnumerable<Type> GetQueryExecutorTypes<TResult>(Type queryType)
         {
-            var executorFaceType = typeof(IQueryExecutor<,>).MakeGenericType(queryType, resultType);
+            var executorFaceType = typeof(IQueryExecutor<,>).MakeGenericType(queryType, typeof(TResult));
             var types = from t in executorsDefineAssembly.DefinedTypes
                         where t.IsClass && t.Namespace == executorsDefineNamespace &&
                         t.ImplementedInterfaces.Contains(executorFaceType)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,7 +15,7 @@ namespace Tomato.CQRS.Infrastructure
     {
         private readonly string executorsDefineNamespace;
         private readonly Assembly executorsDefineAssembly;
-        private Dictionary<Type, Type> cachedExecutorTypes = new Dictionary<Type, Type>();
+        private static ConcurrentDictionary<Type, Type> cachedExecutorTypes = new ConcurrentDictionary<Type, Type>();
 
         public CommandExecutorFactory(Assembly executorsDefineAssembly, string executorsDefineNamespace)
         {
@@ -29,16 +30,15 @@ namespace Tomato.CQRS.Infrastructure
         /// <returns>一个命令执行器</returns>
         public ICommandExecutor<ICommand> Create(Type commandType)
         {
-            Type executorType;
-            if (!cachedExecutorTypes.TryGetValue(commandType, out executorType))
+            var executorType = cachedExecutorTypes.GetOrAdd(commandType, _ =>
             {
-                executorType = GetCommandExecutorTypes(commandType).FirstOrDefault();
+                var type = GetCommandExecutorTypes(commandType).FirstOrDefault();
 
-                if (executorType != null)
-                    cachedExecutorTypes.Add(commandType, executorType);
+                if (type != null)
+                    return type;
                 else
                     throw new UnregisteredCommandExecutorException(commandType);
-            }
+            });
             return (ICommandExecutor<ICommand>)ServiceLocator.Default.GetPerSession(executorType);
         }
 

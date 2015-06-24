@@ -1,5 +1,6 @@
 ﻿using MoeAtHome.CQRS.Commands;
 using MoeAtHome.CQRS.Queries;
+using MoeAtHome.CQRS.QueryMiddlewares;
 using Owin;
 using StructureMap.Configuration.DSL;
 using System;
@@ -16,7 +17,7 @@ namespace MoeAtHome.CQRS
     {
         public static void ConfigCQRS(IAppBuilder app)
         {
-            app.UseCQRS(new MessagingRegistry());
+            app.UseCQRS(new MessagingRegistry(), new QueryMiddlewareRegistry());
         }
     }
 

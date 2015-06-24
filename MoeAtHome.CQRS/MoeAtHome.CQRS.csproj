@@ -53,13 +53,19 @@
   <ItemGroup>
     <Compile Include="Commands\IDummyCommand.cs" />
     <Compile Include="CQRSConfig.cs" />
+    <Compile Include="Domains\Link.cs" />
+    <Compile Include="Domains\Link.EventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\IDummyQuery.cs" />
+    <Compile Include="QueryMiddlewares\AllLinkDisplaysQueryMiddleware.cs" />
+    <Compile Include="QueryMiddlewares\QueryMiddlewareRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Dtos\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tomato.CQRS.Infrastructure\Tomato.CQRS.Infrastructure.csproj">
       <Project>{e42d3faa-cd32-44d0-b090-cf4bfc4d7599}</Project>
