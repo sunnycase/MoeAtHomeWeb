@@ -35,7 +35,7 @@ namespace MoeAtHome.Web
                 .SetBasePath(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
-
+            
             if (env.IsDevelopment())
             {
                 // This reads the configuration keys from the secret store.
@@ -62,21 +62,6 @@ namespace MoeAtHome.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Configure the options for the authentication middleware.
-            // You can add options for Google, Twitter and other middleware as shown below.
-            // For more information see http://go.microsoft.com/fwlink/?LinkID=532715
-            services.Configure<FacebookOptions>(options =>
-            {
-                options.AppId = Configuration["Authentication:Facebook:AppId"];
-                options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-            });
-
-            services.Configure<MicrosoftAccountOptions>(options =>
-            {
-                options.ClientId = Configuration["Authentication:MicrosoftAccount:ClientId"];
-                options.ClientSecret = Configuration["Authentication:MicrosoftAccount:ClientSecret"];
-            });
-
             // Add MVC services to the services container.
             services.AddMvc();
 
@@ -94,15 +79,15 @@ namespace MoeAtHome.Web
         {
             loggerFactory.MinimumLevel = LogLevel.Information;
             loggerFactory.AddConsole();
+            loggerFactory.AddDebug();
 
             // Configure the HTTP request pipeline.
-
+            
             // Add the following to the request pipeline only in development environment.
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
             }
             else
             {
@@ -110,7 +95,8 @@ namespace MoeAtHome.Web
                 // sends the request to the following path or controller action.
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseIISPlatformHandler();
+            
             // Add static files to the request pipeline.
             app.UseStaticFiles();
 
@@ -123,6 +109,21 @@ namespace MoeAtHome.Web
             // app.UseGoogleAuthentication();
             // app.UseMicrosoftAccountAuthentication();
             // app.UseTwitterAuthentication();
+
+            // Configure the options for the authentication middleware.
+            // You can add options for Google, Twitter and other middleware as shown below.
+            // For more information see http://go.microsoft.com/fwlink/?LinkID=532715
+            //app.UseFacebookAuthentication(options =>
+            //{
+            //    options.AppId = Configuration["Authentication:Facebook:AppId"];
+            //    options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            //});
+
+            //app.UseMicrosoftAccountAuthentication(options =>
+            //{
+            //    options.ClientId = Configuration["Authentication:MicrosoftAccount:ClientId"];
+            //    options.ClientSecret = Configuration["Authentication:MicrosoftAccount:ClientSecret"];
+            //});
 
             // Add MVC to the request pipeline.
             app.UseMvc(routes =>
