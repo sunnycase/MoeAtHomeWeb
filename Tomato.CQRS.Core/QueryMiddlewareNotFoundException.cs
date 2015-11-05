@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tomato.CQRS.Infrastructure
+namespace Tomato.CQRS.Core
 {
     /// <summary>
     /// 查询中间件未找到
     /// </summary>
-    public class QueryMiddlewareNotFoundException : ApplicationException
+    public class QueryMiddlewareNotFoundException : Exception
     {
         /// <summary>
         /// 查询链类型

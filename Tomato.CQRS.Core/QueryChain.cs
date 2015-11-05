@@ -1,10 +1,9 @@
-﻿using StructureMap.Pipeline;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tomato.CQRS.Infrastructure;
+using Tomato.CQRS.Core;
 
 namespace Tomato.CQRS
 {

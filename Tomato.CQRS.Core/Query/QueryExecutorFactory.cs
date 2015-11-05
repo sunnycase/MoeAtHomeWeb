@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tomato.CQRS.Infrastructure
+namespace Tomato.CQRS.Core
 {
     /// <summary>
     /// 查询执行器工厂的默认实现

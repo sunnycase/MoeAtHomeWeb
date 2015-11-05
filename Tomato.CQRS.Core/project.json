@@ -1,0 +1,23 @@
+﻿{
+  "version": "1.0.0-alpha1",
+  "description": "Tomato CQRS Core Class Library",
+  "authors": [ "SunnyCase" ],
+  "tags": [ "CQRS" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "dependencies": {
+    "System.Collections": "4.0.10",
+    "System.Collections.Concurrent": "4.0.10",
+    "System.Linq": "4.0.0",
+    "System.Threading": "4.0.10",
+    "System.Runtime": "4.0.20",
+    "Microsoft.CSharp": "4.0.0",
+    "Microsoft.Framework.DependencyInjection.Abstractions": "1.0.0-beta8",
+    "Microsoft.Framework.OptionsModel": "1.0.0-beta8"
+  },
+
+  "frameworks": {
+    "dotnet": { }
+  }
+}

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tomato.CQRS.Infrastructure
+namespace Tomato.CQRS.Core
 {
     /// <summary>
     /// 未注册的查询执行器

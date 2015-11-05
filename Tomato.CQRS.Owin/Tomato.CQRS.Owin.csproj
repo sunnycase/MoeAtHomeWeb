@@ -60,12 +60,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tomato.CQRS.Infrastructure\Tomato.CQRS.Infrastructure.csproj">
-      <Project>{e42d3faa-cd32-44d0-b090-cf4bfc4d7599}</Project>
-      <Name>Tomato.CQRS.Infrastructure</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tomato.CQRS.Infrastructure
+namespace Tomato.CQRS.Core
 {
     /// <summary>
     /// 未注册的命令执行器
     /// </summary>
-    public class UnregisteredCommandExecutorException : ApplicationException
+    public class UnregisteredCommandExecutorException : Exception
     {
         private readonly Type commandType;
 
