@@ -17,6 +17,6 @@ namespace Tomato.CQRS.Core
         /// <param name="queryType">查询类型</param>
         /// <typeparam name="TResult">查询结果类型</typeparam>
         /// <returns>查询执行器</returns>
-        IQueryExecutor<IQuery<TResult>, TResult> Create<TResult>(Type queryType);
+        IQueryExecutor<IQuery<TResult>, TResult> Create<TResult>(IServiceProvider serviceProvider, Type queryType);
     }
 }

@@ -16,7 +16,7 @@ namespace Tomato.CQRS.Core
         /// <summary>
         /// 查询链的下一个中间件
         /// </summary>
-        protected QueryMiddleware<TArgs, TResult> Next { get; private set; }
+        protected QueryMiddleware<TArgs, TResult> Next { get; }
 
         public QueryMiddleware(QueryMiddleware<TArgs, TResult> next)
         {

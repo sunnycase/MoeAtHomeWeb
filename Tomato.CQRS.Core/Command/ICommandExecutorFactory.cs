@@ -16,6 +16,6 @@ namespace Tomato.CQRS.Core
         /// </summary>
         /// <param name="commandType">命令类型</param>
         /// <returns>一个命令执行器</returns>
-        ICommandExecutor<ICommand> Create(Type commandType);
+        ICommandExecutor<ICommand> Create(IServiceProvider serviceProvider, Type commandType);
     }
 }

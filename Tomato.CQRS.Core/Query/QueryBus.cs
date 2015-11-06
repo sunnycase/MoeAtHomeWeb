@@ -8,16 +8,18 @@ namespace Tomato.CQRS.Core
 {
     class QueryBus : IQueryBus
     {
-        private readonly IQueryExecutorFactory executorFactory;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IQueryExecutorFactory _executorFactory;
 
-        public QueryBus(IQueryExecutorFactory executorFactory)
+        public QueryBus(IServiceProvider serviceProvider, IQueryExecutorFactory executorFactory)
         {
-            this.executorFactory = executorFactory;
+            _serviceProvider = serviceProvider;
+            _executorFactory = executorFactory;
         }
 
         public Task<TResult> SendAsync<TResult>(IQuery<TResult> query)
         {
-            var executor = executorFactory.Create<TResult>(query.GetType());
+            var executor = _executorFactory.Create<TResult>(_serviceProvider, query.GetType());
             return executor.ExecuteAsync(query);
         }
     }

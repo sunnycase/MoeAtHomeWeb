@@ -69,6 +69,11 @@ namespace MoeAtHome.Web
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();
 
+            // 添加 CQRS
+            services.AddCQRS()
+                .AddCommandBus()
+                .AddQueryBus();
+
             // Register application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();

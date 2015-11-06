@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Tomato.CQRS.Core", "Tomato.CQRS.Core\Tomato.CQRS.Core.xproj", "{6D1221D4-7256-4B0A-B9E6-CA6DB9C6457F}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MoeAtHome.AuthorizationServer", "MoeAtHome.AuthorizationServer\MoeAtHome.AuthorizationServer.xproj", "{27C10675-9D0C-4226-B2B5-AAD32908CE95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{6D1221D4-7256-4B0A-B9E6-CA6DB9C6457F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D1221D4-7256-4B0A-B9E6-CA6DB9C6457F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D1221D4-7256-4B0A-B9E6-CA6DB9C6457F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C10675-9D0C-4226-B2B5-AAD32908CE95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C10675-9D0C-4226-B2B5-AAD32908CE95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C10675-9D0C-4226-B2B5-AAD32908CE95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C10675-9D0C-4226-B2B5-AAD32908CE95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

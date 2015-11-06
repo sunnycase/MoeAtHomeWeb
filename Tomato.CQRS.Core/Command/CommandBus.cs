@@ -11,27 +11,28 @@ namespace Tomato.CQRS.Core
     /// </summary>
     class CommandBus : ICommandBus
     {
-        private readonly ICommandExecutorFactory executorFactory;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly ICommandExecutorFactory _executorFactory;
 
         /// <summary>
         /// 创建命令总线的一个实例
         /// </summary>
         /// <param name="executorFactory">命令执行器工厂</param>
-        public CommandBus(ICommandExecutorFactory executorFactory)
+        public CommandBus(IServiceProvider serviceProvider, ICommandExecutorFactory executorFactory)
         {
-            this.executorFactory = executorFactory;
+            _serviceProvider = serviceProvider;
+            _executorFactory = executorFactory;
         }
 
         public Task SendAsync(ICommand command)
         {
-            var executor = executorFactory.Create(command.GetType());
+            var executor = _executorFactory.Create(_serviceProvider, command.GetType());
             return executor.ExecuteAsync(command);
         }
 
         public async Task<TResult> SendAsync<TResult>(ICommand<TResult> command)
         {
-            var executor = executorFactory.Create(command.GetType());
-            await executor.ExecuteAsync(command);
+            await SendAsync((ICommand)command);
             return command.Result;
         }
     }

@@ -9,7 +9,7 @@ namespace Tomato.CQRS.Core
     /// <summary>
     /// 未注册的查询执行器
     /// </summary>
-    public class UnregisteredQueryExecutorException : ApplicationException
+    public class UnregisteredQueryExecutorException : Exception
     {
         private readonly Type queryType;
 

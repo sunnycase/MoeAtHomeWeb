@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Framework.DependencyInjection;
 using Tomato.CQRS.Core;
 
-namespace Tomato.CQRS
+namespace Tomato.CQRS.Core
 {
     /// <summary>
     /// 查询链
@@ -14,9 +16,14 @@ namespace Tomato.CQRS
     /// <typeparam name="TResult">查询结果类型</typeparam>
     public class QueryChain<TArgs, TResult>
     {
-        private QueryMiddleware<TArgs, TResult> headMiddleware = null;
-        private List<Tuple<Type, object[]>> middlewareParams = new List<Tuple<Type, object[]>>();
-        private bool chainUpdated = true;
+        private Lazy<QueryMiddleware<TArgs, TResult>> _headMiddleware;
+        private readonly List<Tuple<Type, object[]>> _middlewareParams = new List<Tuple<Type, object[]>>();
+        private readonly IServiceProvider _serviceProvider;
+
+        public QueryChain(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
 
         /// <summary>
         /// 使用中间件
@@ -25,8 +32,9 @@ namespace Tomato.CQRS
         /// <param name="args">参数</param>
         public void Use<TMiddleware>(params object[] args) where TMiddleware : QueryMiddleware<TArgs, TResult>
         {
-            middlewareParams.Add(Tuple.Create(typeof(TMiddleware), args));
-            chainUpdated = false;
+            lock(_middlewareParams)
+                _middlewareParams.Add(Tuple.Create(typeof(TMiddleware), args));
+            Refresh();
         }
 
         /// <summary>
@@ -35,8 +43,7 @@ namespace Tomato.CQRS
         /// <returns>查询结果</returns>
         public async Task<TResult> QueryAsync(TArgs args)
         {
-            if (!chainUpdated) BuildChain();
-
+            var headMiddleware = _headMiddleware.Value;
             if (headMiddleware != null)
                 return await headMiddleware.QueryAsync(args);
 
@@ -46,30 +53,22 @@ namespace Tomato.CQRS
         /// <summary>
         /// 创建查询链
         /// </summary>
-        public void BuildChain()
+        private QueryMiddleware<TArgs, TResult> BuildUp()
         {
-            headMiddleware = null;
-            var reversedParams = Enumerable.Reverse(middlewareParams);
+            List<Tuple<Type, object[]>> reversedParams;
+            lock(_middlewareParams)
+                reversedParams = Enumerable.Reverse(_middlewareParams).ToList();
+
             QueryMiddleware<TArgs, TResult> lastMiddleware = null;
 
             foreach (var param in reversedParams)
-            {
-                var expArgs = CreateActivatorArguments(lastMiddleware, param.Item2);
-                var middleware = (QueryMiddleware<TArgs, TResult>)ServiceLocator.Default.IoC.GetInstance(param.Item1, expArgs);
-                lastMiddleware = middleware;
-            }
-            headMiddleware = lastMiddleware;
-            chainUpdated = true;
+                lastMiddleware = (QueryMiddleware<TArgs, TResult>)ActivatorUtilities.CreateInstance(_serviceProvider, param.Item1, lastMiddleware, param.Item2);
+            return lastMiddleware;
         }
 
-        static ExplicitArguments CreateActivatorArguments(QueryMiddleware<TArgs, TResult> next, object[] args)
+        private void Refresh()
         {
-            var expArgs = new ExplicitArguments();
-
-            expArgs.Set(next);
-            foreach (var arg in args)
-                expArgs.Set(arg.GetType(), arg);
-            return expArgs;
+            _headMiddleware = new Lazy<QueryMiddleware<TArgs, TResult>>(BuildUp, LazyThreadSafetyMode.PublicationOnly);
         }
     }
 }

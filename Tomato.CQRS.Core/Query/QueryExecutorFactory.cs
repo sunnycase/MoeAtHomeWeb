@@ -5,22 +5,23 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Framework.DependencyInjection;
 
 namespace Tomato.CQRS.Core
 {
     /// <summary>
-    /// 查询执行器工厂的默认实现
+    /// 查询执行器工厂
     /// </summary>
-    public class QueryExecutorFactory : IQueryExecutorFactory
+    class QueryExecutorFactory : IQueryExecutorFactory
     {
-        private readonly string executorsDefineNamespace;
-        private readonly Assembly executorsDefineAssembly;
-        private static ConcurrentDictionary<Type, Type> cachedExecutorTypes = new ConcurrentDictionary<Type, Type>();
+        private readonly Dictionary<Type, Type> _executorsMap;
 
-        public QueryExecutorFactory(Assembly executorsDefineAssembly, string executorsDefineNamespace)
+        public QueryExecutorFactory(Dictionary<Type, Type> executorsMap)
         {
-            this.executorsDefineAssembly = executorsDefineAssembly;
-            this.executorsDefineNamespace = executorsDefineNamespace;
+            if (executorsMap == null)
+                throw new ArgumentNullException(nameof(executorsMap));
+
+            _executorsMap = executorsMap;
         }
 
         /// <summary>
@@ -29,29 +30,12 @@ namespace Tomato.CQRS.Core
         /// <param name="queryType">查询类型</param>
         /// <typeparam name="TResult">查询结果类型</typeparam>
         /// <returns>查询执行器</returns>
-        public IQueryExecutor<IQuery<TResult>, TResult> Create<TResult>(Type queryType)
+        public IQueryExecutor<IQuery<TResult>, TResult> Create<TResult>(IServiceProvider serviceProvider, Type queryType)
         {
-            var executorType = cachedExecutorTypes.GetOrAdd(queryType, _ =>
-            {
-                var type = GetQueryExecutorTypes<TResult>(queryType).FirstOrDefault();
-
-                if (type != null)
-                    return type;
-                else
-                    throw new UnregisteredCommandExecutorException(queryType);
-            });
-            return (IQueryExecutor<IQuery<TResult>, TResult>)ServiceLocator.Default.GetPerSession(executorType);
-        }
-
-        protected virtual IEnumerable<Type> GetQueryExecutorTypes<TResult>(Type queryType)
-        {
-            var executorFaceType = typeof(IQueryExecutor<,>).MakeGenericType(queryType, typeof(TResult));
-            var types = from t in executorsDefineAssembly.DefinedTypes
-                        where t.IsClass && t.Namespace == executorsDefineNamespace &&
-                        t.ImplementedInterfaces.Contains(executorFaceType)
-                        select t;
-
-            return types;
+            Type executorType;
+            if (_executorsMap.TryGetValue(queryType, out executorType))
+                return (IQueryExecutor<IQuery<TResult>, TResult>)ActivatorUtilities.CreateInstance(serviceProvider, queryType);
+            throw new UnregisteredCommandExecutorException(queryType);
         }
     }
 }
