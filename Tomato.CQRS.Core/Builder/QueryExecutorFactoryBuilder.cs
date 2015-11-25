@@ -12,7 +12,7 @@ namespace Tomato.CQRS.Builder
 
         public IQueryExecutorFactory BuildUp()
         {
-            throw new NotImplementedException();
+            return new QueryExecutorFactory(_executorsMap);
         }
 
         IQueryExecutorFactoryBuilder IQueryExecutorFactoryBuilder.Use<TQuery, TQueryExecutor, TResult>()

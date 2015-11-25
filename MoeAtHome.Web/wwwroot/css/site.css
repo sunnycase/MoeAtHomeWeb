@@ -32,3 +32,20 @@ textarea {
         z-index: 10 !important;
     }
 }
+
+.blog-header {
+    display:block;
+    width:100%;
+    height:220px;
+    background:url('/images/blog-header.jpg') no-repeat;
+    background-size:cover;
+    border-radius:8px;
+    margin:20px 0;
+}
+
+.blog-header .content{
+    display:block;
+    padding:50px 80px;
+    color:white;
+    text-shadow:1px 1px 2px #0094ff;  
+}

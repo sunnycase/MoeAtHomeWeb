@@ -6,7 +6,7 @@ using Tomato.CQRS;
 using Tomato.CQRS.Builder;
 using Tomato.CQRS.Core;
 
-namespace Microsoft.Framework.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class CQRSServiceCollectionExtensions
     {

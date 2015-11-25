@@ -160,3 +160,5 @@ $RECYCLE.BIN/
 /MoeAtHome.sln.ide
 /packages
 /MoeAtHome/Properties/PublishProfiles
+/MoeAtHome.Web/wwwroot/lib
+/MoeAtHome.Web/node_modules
