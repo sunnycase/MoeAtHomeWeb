@@ -1,10 +1,14 @@
 ﻿{
   "AppSettings": {
-    "SiteTitle": "MoeAtHome.Web"
+    "SiteTitle": "Moe@Home"
   },
   "Data": {
     "DefaultConnection": {
       "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=aspnet5-MoeAtHome.Web-ea25983e-bd40-4038-bcb9-3f015f0f423e;Trusted_Connection=True;MultipleActiveResultSets=true"
     }
+  },
+  "LyricsService": {
+    "DbConnectionString": "mongodb://localhost:27017",
+    "StorageDirectory": "D:\\Lyrics\\"
   }
 }

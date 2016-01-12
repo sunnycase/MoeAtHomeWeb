@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using MoeAtHome.Web.Models;
 using MoeAtHome.Web.Services;
+using Newtonsoft.Json.Serialization;
 
 namespace MoeAtHome.Web
 {
@@ -61,7 +62,10 @@ namespace MoeAtHome.Web
                 .AddDefaultTokenProviders();
 
             // Add MVC services to the services container.
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options=>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
@@ -71,6 +75,13 @@ namespace MoeAtHome.Web
             services.AddCQRS()
                 .AddCommandBus()
                 .AddQueryBus();
+
+            // 添加 Lyrics 服务
+            services.AddLyricsService(options =>
+            {
+                options.DbConnectionString = Configuration["LyricsService:DbConnectionString"];
+                options.StorageDirectory = Configuration["LyricsService:StorageDirectory"];
+            });
 
             // Register application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

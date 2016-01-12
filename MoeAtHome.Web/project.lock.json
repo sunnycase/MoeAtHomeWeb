@@ -1793,6 +1793,40 @@
           "lib/dnx451/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll": {}
         }
       },
+      "MongoDB.Bson/2.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/MongoDB.Bson.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Bson.dll": {}
+        }
+      },
+      "MongoDB.Driver/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "MongoDB.Bson": "2.2.1",
+          "MongoDB.Driver.Core": "2.2.1"
+        },
+        "compile": {
+          "lib/net45/MongoDB.Driver.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Driver.dll": {}
+        }
+      },
+      "MongoDB.Driver.Core/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "MongoDB.Bson": "2.2.1"
+        },
+        "compile": {
+          "lib/net45/MongoDB.Driver.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Driver.Core.dll": {}
+        }
+      },
       "Newtonsoft.Json/6.0.6": {
         "type": "package",
         "compile": {
@@ -3823,6 +3857,40 @@
         },
         "runtime": {
           "lib/dnx451/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll": {}
+        }
+      },
+      "MongoDB.Bson/2.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/MongoDB.Bson.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Bson.dll": {}
+        }
+      },
+      "MongoDB.Driver/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "MongoDB.Bson": "2.2.1",
+          "MongoDB.Driver.Core": "2.2.1"
+        },
+        "compile": {
+          "lib/net45/MongoDB.Driver.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Driver.dll": {}
+        }
+      },
+      "MongoDB.Driver.Core/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "MongoDB.Bson": "2.2.1"
+        },
+        "compile": {
+          "lib/net45/MongoDB.Driver.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Driver.Core.dll": {}
         }
       },
       "Newtonsoft.Json/6.0.6": {
@@ -5857,6 +5925,40 @@
           "lib/dnx451/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll": {}
         }
       },
+      "MongoDB.Bson/2.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/MongoDB.Bson.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Bson.dll": {}
+        }
+      },
+      "MongoDB.Driver/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "MongoDB.Bson": "2.2.1",
+          "MongoDB.Driver.Core": "2.2.1"
+        },
+        "compile": {
+          "lib/net45/MongoDB.Driver.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Driver.dll": {}
+        }
+      },
+      "MongoDB.Driver.Core/2.2.1": {
+        "type": "package",
+        "dependencies": {
+          "MongoDB.Bson": "2.2.1"
+        },
+        "compile": {
+          "lib/net45/MongoDB.Driver.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net45/MongoDB.Driver.Core.dll": {}
+        }
+      },
       "Newtonsoft.Json/6.0.6": {
         "type": "package",
         "compile": {
@@ -7479,6 +7581,41 @@
         "Microsoft.VisualStudio.Web.BrowserLink.Loader.nuspec"
       ]
     },
+    "MongoDB.Bson/2.2.1": {
+      "type": "package",
+      "sha512": "dZ+0bziCZIPufi8Nnitl+S44HCCDyqutugfXx3vZV3EaqpYl654y97IQFg/97RzZ7Gq2wysINZ0s+xtaYQ23kw==",
+      "files": [
+        "lib/net45/MongoDB.Bson.dll",
+        "lib/net45/MongoDB.Bson.XML",
+        "License.rtf",
+        "MongoDB.Bson.2.2.1.nupkg",
+        "MongoDB.Bson.2.2.1.nupkg.sha512",
+        "MongoDB.Bson.nuspec"
+      ]
+    },
+    "MongoDB.Driver/2.2.1": {
+      "type": "package",
+      "sha512": "RBV5C0rhGh40QZYItqpMgB7E/WsVrpdGcl1R3XzOqc9pRYMdyVURKwlK7YXQ6vVhlKuQfeAxeLw+MAIlAKV0CA==",
+      "files": [
+        "lib/net45/MongoDB.Driver.dll",
+        "lib/net45/MongoDB.Driver.XML",
+        "License.rtf",
+        "MongoDB.Driver.2.2.1.nupkg",
+        "MongoDB.Driver.2.2.1.nupkg.sha512",
+        "MongoDB.Driver.nuspec"
+      ]
+    },
+    "MongoDB.Driver.Core/2.2.1": {
+      "type": "package",
+      "sha512": "DKYMzZ+ZlatRH22YRSG2JdhA6ygWCXYPeHTGgaMb5D6LHJZBGnX5Ywb7/riX+Z8VX5v/WvfZTbjRujmx70rcAA==",
+      "files": [
+        "lib/net45/MongoDB.Driver.Core.dll",
+        "License.rtf",
+        "MongoDB.Driver.Core.2.2.1.nupkg",
+        "MongoDB.Driver.Core.2.2.1.nupkg.sha512",
+        "MongoDB.Driver.Core.nuspec"
+      ]
+    },
     "Newtonsoft.Json/6.0.6": {
       "type": "package",
       "sha512": "w26uZNyCG5VeoKiEOJ4+9/o8koSofLKwHl7WLreIcp0U6r57L7WiRXmjp8MTKFw6dYNZ9AE0lw69WYbIhUsU9Q==",
@@ -8321,6 +8458,7 @@
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final",
+      "MongoDB.Driver >= 2.2.1",
       "Tomato.CQRS.Core "
     ],
     "DNX,Version=v4.5.1": []
