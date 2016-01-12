@@ -61,10 +61,12 @@ namespace MoeAtHome.Web.Services
                     Artist = artist,
                     CreatedTime = DateTime.UtcNow,
                     AccessTimes = 1,
-                    FileName = id.ToString("N")
+                    FileName = $"{id.ToString("N")}.lrc"
                 };
                 using (var stream = await _ttLyrics.DownloadLrc(lrcInfo))
                     await _storage.Save(stream, lyric.FileName);
+                var repo = await LyricsRepo;
+                await repo.InsertOneAsync(lyric);
                 return lyric;
             }
             return null;
