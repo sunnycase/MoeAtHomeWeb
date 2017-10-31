@@ -1,34 +1,42 @@
-<template>
+﻿<template>
     <div class="main-nav">
-        <div class="navbar navbar-inverse">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">MoeAtHome_Web</a>
+        <div class="row">
+            <div class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">Moe@Home</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <router-link to="/" :exact="true">
+                                    <span class="glyphicon glyphicon-home"></span> 首页
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link to="/aboutme">
+                                    <span class="glyphicon glyphicon-info-sign"></span> 关于我
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="clearfix"></div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <router-link to="/" :exact="true">
-                            <span class="glyphicon glyphicon-home"></span> Home
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/counter">
-                            <span class="glyphicon glyphicon-education"></span> Counter
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/fetchdata">
-                            <span class="glyphicon glyphicon-th-list"></span> Fetch data
-                        </router-link>
-                    </li>
-                </ul>
+        </div>
+        <div class="row">
+            <div class="container">
+                <div class="blog-header">
+                    <div class="content">
+                        <h1 class="header">Moe@Home</h1>
+                        <h4 class="sub-header">SunnyCase</h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
