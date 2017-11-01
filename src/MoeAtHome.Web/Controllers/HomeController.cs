@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MoeAtHome_Web.Controllers
+namespace MoeAtHome.Web.Controllers
 {
     public class HomeController : Controller
     {

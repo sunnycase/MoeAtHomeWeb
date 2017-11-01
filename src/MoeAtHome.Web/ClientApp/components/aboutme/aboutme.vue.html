@@ -8,7 +8,11 @@
         </ul>
         <h3>我的朋友们</h3>
         <ul>
-            <li><strong>chu</strong> <a href="http://www.bakachu.cn/" target="_blank">http://www.bakachu.cn/</a></li>
+            <li v-for="friend in friends">
+                <strong>{{ friend.name }}</strong> <a :href="friend.url" target="_blank">{{ friend.url }}</a>
+            </li>
         </ul>
     </div>
 </template>
+
+<script src="./aboutme.ts"></script>
